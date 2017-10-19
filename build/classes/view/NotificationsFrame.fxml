@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXListView?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="523.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NotificationsFrameController">
+   <children>
+      <AnchorPane layoutY="6.0" prefHeight="76.0" prefWidth="700.0" style="-fx-background-color: #447477;">
+         <children>
+            <Label layoutX="26.0" layoutY="14.0" text="All Notifications" textFill="WHITE">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+            <Label fx:id="notificationsLabel" layoutX="26.0" layoutY="54.0" textFill="WHITE" />
+            <MaterialDesignIconView fx:id="notfoundNotificationGlyph" fill="#fff3f3" glyphName="EMOTICON_NEUTRAL" layoutX="329.0" layoutY="49.0" size="40" visible="false" wrappingWidth="24.0" />
+         </children>
+         <effect>
+            <DropShadow />
+         </effect>
+      </AnchorPane>
+      <AnchorPane layoutY="76.0" prefHeight="447.0" prefWidth="707.0">
+         <children>
+            <JFXListView fx:id="listNotifications" layoutX="25.0" layoutY="22.0" prefHeight="414.0" prefWidth="670.0" style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.1), 6.0, 0.7, 0.0,1.5);" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

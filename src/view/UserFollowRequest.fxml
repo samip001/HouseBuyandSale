@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="183.0" prefWidth="601.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UserFollowRequestController">
+   <children>
+      <AnchorPane fx:id="viewPane" layoutX="15.0" layoutY="10.0" prefHeight="130.0" prefWidth="570.0" style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.1), 6.0, 0.7, 0.0,1.5);">
+         <children>
+            <Circle fx:id="userProfileCircle" fill="DODGERBLUE" layoutX="58.0" layoutY="58.0" radius="44.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+            <Label fx:id="usernameLabel" layoutX="126.0" layoutY="7.0" prefHeight="30.0" prefWidth="329.0" text="username" textFill="#477477">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <JFXButton fx:id="viewProfileBtn" layoutX="173.0" layoutY="46.0" onAction="#viewProfileActivity" prefHeight="37.0" prefWidth="140.0" ripplerFill="BLACK" style="-fx-background-color: #447477;" text="View Profile" textFill="WHITE">
+               <graphic>
+                  <MaterialDesignIconView fill="WHITE" glyphName="EYE" size="21" />
+               </graphic>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="acceptBtn" layoutX="328.0" layoutY="46.0" onAction="#acceptRequestActivity" prefHeight="37.0" prefWidth="107.0" ripplerFill="BLACK" style="-fx-background-color: #447477;" text="Accept" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIconView fill="#f5ebeb" glyphName="CHECK_CIRCLE" size="20" />
+               </graphic>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="rejectedBtn" layoutX="447.0" layoutY="46.0" onAction="#rejectRequestActivity" prefHeight="37.0" prefWidth="107.0" style="-fx-background-color: RED;" text="Reject" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIconView fill="#eedede" glyphName="TIMES_CIRCLE" size="20" />
+               </graphic>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </JFXButton>
+            <Label fx:id="newequestLabel" layoutX="138.0" layoutY="38.0" textFill="#477477" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="userProfilePane" layoutX="15.0" layoutY="10.0" prefHeight="159.0" prefWidth="570.0" style="-fx-background-color: gray;" visible="false">
+         <children>
+            <AnchorPane layoutX="371.0" layoutY="9.0" prefHeight="122.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="14.0" layoutY="-8.0" text="Profile Description" />
+                  <TextArea fx:id="profileDescription" editable="false" layoutX="2.0" layoutY="18.0" prefHeight="112.0" prefWidth="192.0" wrapText="true" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="44.0" layoutY="9.0" prefHeight="142.0" prefWidth="5.0">
+               <children>
+                  <Circle fx:id="profileCircle" fill="DODGERBLUE" layoutX="47.0" layoutY="75.0" radius="41.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                  <Label fx:id="profileUsername" layoutX="86.0" layoutY="-3.0" prefHeight="30.0" prefWidth="237.0" text="username" textFill="#60dee4">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="profilename" layoutX="100.0" layoutY="21.0" text="First Name" textFill="#60dee4" />
+                  <Label fx:id="profileDOB" layoutX="144.0" layoutY="59.0" text="DOB" textFill="#75eaff" />
+                  <Label fx:id="profileAddress" layoutX="165.0" layoutY="38.0" text="Address" textFill="#75eaff" />
+                  <Label layoutX="119.0" layoutY="78.0" text="Post for room" textFill="#89fcfc" />
+                  <Label layoutX="119.0" layoutY="97.0" text="Post For House" textFill="#89fcfc" />
+                  <Label layoutX="120.0" layoutY="116.0" text="Post For Apartment" textFill="#89fcfc" />
+                  <Label fx:id="roomLabel" layoutX="102.0" layoutY="78.0" text="2" textFill="#89fcfc" />
+                  <Label fx:id="houseLabel" layoutX="101.0" layoutY="97.0" text="1" textFill="#89fcfc" />
+                  <Label fx:id="apartmentLabel" layoutX="101.0" layoutY="116.0" text="3" textFill="#89fcfc" />
+                  <Label layoutX="101.0" layoutY="38.0" text="Address: " textFill="#75eaff" />
+                  <Label layoutX="101.0" layoutY="58.0" text="DOB: " textFill="#75eaff" />
+               </children>
+            </AnchorPane>
+            <JFXButton fx:id="profileBackBtn" layoutX="13.0" layoutY="9.0" onAction="#backToViewRequestPane" ripplerFill="#245b5b" text="Back" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="rejectedPane" prefHeight="183.0" prefWidth="601.0" style="-fx-background-color: #fff;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <AnchorPane fx:id="accpetedPane" prefHeight="200.0" prefWidth="601.0" visible="false">
+         <children>
+            <Label fx:id="acceptedLabel" layoutX="206.0" layoutY="63.0" />
+            <JFXButton fx:id="acceptedBackBtn" layoutX="40.0" layoutY="14.0" onAction="#acceptedToView" text="Back" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

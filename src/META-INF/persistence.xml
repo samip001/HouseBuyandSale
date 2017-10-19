@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="CheckPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>model.Notification</class>
+    <class>model.BookingDetails</class>
+    <class>model.IntrestedUser</class>
+    <class>model.HouseType</class>
+    <class>model.User_1</class>
+    <class>model.UserDescription_1</class>
+    <class>model.BookedRoom</class>
+    <class>model.RoomInterestedUser</class>
+    <class>model.BookedHouse</class>
+    <class>model.BookedApartment</class>
+    <class>model.ApartmentInterestedUser</class>
+    <class>model.HouseInterestedUser</class>
+    <class>model.HouseBooked</class>
+    <class>model.ApartmentType</class>
+    <class>model.HouseIntrestedUser</class>
+    <class>data.NotificationUser</class>
+    <class>data.House</class>
+    <class>data.InterestedUser</class>
+    <class>data.User</class>
+    <class>data.UserType</class>
+    <class>data.FollowRequest</class>
+    <class>data.Apartment</class>
+    <class>data.HouseInformation</class>
+    <class>data.UserDescription</class>
+    <class>data.Room</class>
+    <class>data.FollowedUser</class>
+    <class>data.ApartmentType</class>
+    <class>data.Booked</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/mysql?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.password" value=""/>
+    </properties>
+  </persistence-unit>
+</persistence>

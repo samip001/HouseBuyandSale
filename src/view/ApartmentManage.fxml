@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXSpinner?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="526.0" prefWidth="728.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ApartmentManageController">
+   <children>
+      <AnchorPane fx:id="noresultPane" prefHeight="537.0" prefWidth="734.0" visible="false">
+         <children>
+            <FontAwesomeIconView fill="#447477" glyphName="FROWN_ALT" layoutX="276.0" layoutY="227.0" size="200" />
+            <Label layoutX="170.0" layoutY="268.0" text="No Posted Information Found For Apartment To Manage" textFill="#447477">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <JFXButton fx:id="noresultRefreshBtn" layoutX="294.0" layoutY="302.0" onAction="#refreshForNoResultPane" style="-fx-background-color: #447477; -fx-background-radius: 10;" text="Refresh" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <graphic>
+                  <MaterialDesignIconView fill="WHITE" glyphName="AUTORENEW" size="30" />
+               </graphic></JFXButton>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="tablePane" layoutX="18.0" layoutY="55.0" prefHeight="495.0" prefWidth="690.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label fx:id="InfoLabel" layoutX="29.0" layoutY="14.0" text="List Of Information Posted for Apartment" textFill="#447477" />
+            <TableView fx:id="tableApartmentData" editable="true" layoutX="29.0" layoutY="36.0" onMousePressed="#getIdofApartment" prefHeight="423.0" prefWidth="622.0" AnchorPane.bottomAnchor="78.0" AnchorPane.leftAnchor="29.0" AnchorPane.rightAnchor="83.0" AnchorPane.topAnchor="36.0">
+               <columns>
+                  <TableColumn fx:id="idColumn" prefWidth="26.0" resizable="false" text="id" visible="false" />
+                  <TableColumn fx:id="apartmentNameColumn" prefWidth="145.0" resizable="false" text="Apartment Name" />
+                  <TableColumn fx:id="locationColumn" prefWidth="79.0" resizable="false" text="Location" />
+                  <TableColumn fx:id="postedDate" prefWidth="99.0" resizable="false" text="Posted Date" />
+                  <TableColumn fx:id="postEndDateColumn" prefWidth="113.0" resizable="false" text="Post End Date" />
+                  <TableColumn fx:id="priceColumn" prefWidth="106.0" resizable="false" text="Price" />
+                  <TableColumn fx:id="paidTypeColumn" editable="false" prefWidth="79.0" resizable="false" text="Paid Type" />
+               </columns>
+            </TableView>
+            <HBox layoutX="402.0" layoutY="464.0" prefHeight="51.0" prefWidth="256.0" spacing="10.0">
+               <children>
+                  <JFXButton fx:id="viewDetailBtn" onAction="#tableToViewActivity" prefHeight="38.0" prefWidth="129.0" style="-fx-background-color: #447477;" text="View Details" textFill="WHITE">
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="EYE" size="20" />
+                     </graphic></JFXButton>
+                  <JFXButton fx:id="updateBtn" onAction="#viewToUpdatePane" prefHeight="38.0" prefWidth="111.0" style="-fx-background-color: #447477;" text="Update" textFill="WHITE">
+                     <graphic>
+                        <FontAwesomeIconView fill="#ebe2e2" glyphName="EDIT" size="20" />
+                     </graphic></JFXButton>
+               </children>
+               <padding>
+                  <Insets left="5.0" top="10.0" />
+               </padding>
+            </HBox>
+            <Label fx:id="errorLabel" layoutX="29.0" layoutY="464.0" textFill="#447477" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="apartmentPane" layoutX="43.0" layoutY="15.0" prefHeight="576.0" prefWidth="795.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane layoutX="28.0" layoutY="36.0" prefHeight="475.0" prefWidth="342.0" style="-fx-background-color: rgb(255.0, 255.0, 255.0); -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.30), 6.0, 0.3, 0,1);" styleClass="card-white">
+               <children>
+                  <Pane layoutX="14.0" layoutY="-20.0" prefHeight="51.0" prefWidth="186.0" style="-fx-background-radius: 5; -fx-background-color: #F87951;">
+                     <children>
+                        <Label layoutX="29.0" layoutY="8.0" prefHeight="35.0" prefWidth="129.0" text="Apartment Details" textFill="WHITE">
+                           <font>
+                              <Font name="Roboto Medium" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <GridPane layoutX="16.0" layoutY="44.0" prefHeight="409.0" prefWidth="272.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="58.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="65.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="95.0" minHeight="10.0" prefHeight="52.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="95.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="112.0" minHeight="10.0" prefHeight="51.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="98.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="91.0" minHeight="10.0" prefHeight="53.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="80.0" minHeight="10.0" prefHeight="71.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <Label fx:id="searchApartment" text="Searching Apartment Saler" textFill="#f87951">
+                           <graphic>
+                              <FontAwesomeIconView fill="#f87951" glyphName="SEARCH" size="25" />
+                           </graphic>
+                        </Label>
+                        <JFXComboBox fx:id="apartmentType" focusColor="#f87951" labelFloat="true" layoutX="10.0" layoutY="279.0" prefHeight="26.0" prefWidth="184.0" promptText="Apartment Type" GridPane.rowIndex="1" />
+                        <JFXTextField fx:id="apartmentNameTxt" focusColor="#f87951" labelFloat="true" promptText="Apartment Name" GridPane.rowIndex="2" />
+                        <JFXTextField fx:id="apartmentLocationTxt" focusColor="#f87951" labelFloat="true" promptText="Location of Apartment" GridPane.rowIndex="3" />
+                        <JFXDatePicker fx:id="endDateApartment" defaultColor="#f87951" editable="false" prefHeight="24.0" prefWidth="217.0" promptText="Final Date" GridPane.rowIndex="4" />
+                        <JFXTextField fx:id="priceApartmentTxt" focusColor="#f87951" labelFloat="true" promptText="Apartment Price" GridPane.rowIndex="5" />
+                        <JFXComboBox fx:id="paidTypeApartment" focusColor="#f87951" labelFloat="true" prefHeight="26.0" prefWidth="184.0" promptText="Payment Method" GridPane.rowIndex="6" />
+                     </children>
+                  </GridPane>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="383.0" layoutY="47.0" prefHeight="409.0" prefWidth="342.0" style="-fx-background-color: #fff; -fx-background-radius: 5; -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,1.5);">
+               <children>
+                  <GridPane layoutX="14.0" layoutY="29.0" prefHeight="255.0" prefWidth="285.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="243.0" minHeight="10.0" prefHeight="136.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="91.0" minHeight="10.0" prefHeight="72.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="68.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <JFXTextArea fx:id="descriptionApartmentTxt" focusColor="#f87951" labelFloat="true" prefHeight="138.0" prefWidth="285.0" promptText="Apartmnet Description" />
+                        <JFXComboBox fx:id="statusofApartment" focusColor="#f87951" labelFloat="true" prefHeight="19.0" prefWidth="201.0" promptText="Status" GridPane.rowIndex="1" />
+                        <JFXComboBox fx:id="visibilityApartment" focusColor="#f87951" labelFloat="true" prefHeight="26.0" prefWidth="201.0" promptText="Apartment Visibility" GridPane.rowIndex="2" />
+                     </children>
+                  </GridPane>
+                  <HBox layoutX="45.0" layoutY="349.0" prefHeight="38.0" prefWidth="272.0" spacing="6.0">
+                     <children>
+                        <JFXButton fx:id="backApartmentBtn" buttonType="RAISED" onAction="#apartmentBackActioon" prefHeight="35.0" prefWidth="74.0" ripplerFill="#f52020" style="-fx-background-color: #F87951;" text="Back" textFill="WHITE">
+                           <font>
+                              <Font name="Roboto Medium" size="15.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton fx:id="clearApartmentField" buttonType="RAISED" onAction="#clearApartmentField" prefHeight="35.0" prefWidth="76.0" ripplerFill="#f52020" style="-fx-background-color: #F87951;" text="Clear" textFill="WHITE">
+                           <font>
+                              <Font name="Roboto Medium" size="15.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton fx:id="updateApartmentBtn" buttonType="RAISED" onAction="#updateApartmentDetails" prefHeight="35.0" prefWidth="101.0" ripplerFill="#f87951" style="-fx-background-color: #F87951;" text="Update" textFill="WHITE">
+                           <font>
+                              <Font name="Roboto Medium" size="15.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </HBox>
+                  <Label fx:id="errorApartmentInfo" layoutX="15.0" layoutY="295.0" textFill="#f87951" />
+               </children>
+            </AnchorPane>
+            <JFXSpinner fx:id="apartmentSpinner" layoutX="496.0" layoutY="463.0" radius="25.0" visible="false" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="viewDetailPane" layoutX="36.0" layoutY="37.0" prefHeight="590.0" prefWidth="784.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <JFXButton fx:id="viewBackBtn" layoutX="1.0" layoutY="-1.0" onAction="#viewToTablePane" prefHeight="26.0" prefWidth="44.0" text="Back">
+               <font>
+                  <Font size="11.0" />
+               </font></JFXButton>
+            <TabPane layoutX="44.0" prefHeight="526.0" prefWidth="697.0" tabClosingPolicy="UNAVAILABLE">
+               <tabs>
+                  <Tab text="Details">
+                     <content>
+                        <AnchorPane fx:id="detailsPane" prefHeight="419.0" prefWidth="558.0" style="-fx-background-color: #447477;">
+                           <children>
+                              <Label layoutX="215.0" layoutY="14.0" text="Apartment Details" textFill="WHITE">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font></Label>
+                              <GridPane layoutX="57.0" layoutY="63.0" prefHeight="394.0" prefWidth="285.0">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="178.0" minWidth="10.0" prefWidth="118.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="167.0" minWidth="10.0" prefWidth="167.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="56.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="31.0" minHeight="8.0" prefHeight="31.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label text="Posted As:" textFill="#e8dbdb" GridPane.rowIndex="2" />
+                                    <Label text="Searching" textFill="#e8dbdb" GridPane.rowIndex="3" />
+                                    <Label text="At location" textFill="#e8dbdb" GridPane.rowIndex="4" />
+                                    <Label text="Apartment Type" textFill="#e8dbdb" GridPane.rowIndex="1" />
+                                    <Label text="Posted Date" textFill="#e8dbdb" GridPane.rowIndex="5" />
+                                    <Label text="Post End date" textFill="#e8dbdb" GridPane.rowIndex="6" />
+                                    <Label text="Price" textFill="#e8dbdb" GridPane.rowIndex="7" />
+                                    <Label text="Paid Type" textFill="#e8dbdb" GridPane.rowIndex="8" />
+                                    <Label text="Status" textFill="#e8dbdb" GridPane.rowIndex="9" />
+                                    <Label fx:id="apartmentNameLbl" prefHeight="17.0" prefWidth="156.0" text="Label1" textFill="#e8dbdb" GridPane.columnIndex="1" />
+                                    <Label fx:id="apartmentTypeLbl" prefHeight="17.0" prefWidth="160.0" text="Label2" textFill="#e8dbdb" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <Label fx:id="loocatioonLbl" prefHeight="17.0" prefWidth="155.0" text="aksldfhjl;ashdl;khsakl;dfhakl;sdhasd;klhfsaasdfasdlflklasdkjfbklasbdkjfb" textFill="#e8dbdb" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <Label fx:id="searchingLbl" text="Label4" textFill="#e8dbdb" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <Label fx:id="postedDateLbl" text="Label5" textFill="#e8dbdb" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                    <Label fx:id="postEndDateLbl" text="Label6" textFill="#e8dbdb" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                    <Label fx:id="priceLbl" text="Label7" textFill="#e8dbdb" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                    <Label fx:id="paidTypeLbl" text="Label8" textFill="#e8dbdb" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                                    <Label fx:id="statusLbl" text="Label9" textFill="#e8dbdb" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                                    <Label fx:id="postedAsLbl" text="nwew akbshkjd" textFill="#e8dbdb" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <Label text="Apartmet Name" textFill="#e8dbdb" />
+                                    <Label fx:id="visibilityLabel" text="Label" textFill="#e8dbdb" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                                    <Label text="Visibility" textFill="#e8dbdb" GridPane.rowIndex="10" />
+                                 </children>
+                              </GridPane>
+                              <Label layoutX="378.0" layoutY="74.0" prefHeight="26.0" prefWidth="170.0" text="Apartment Description" textFill="WHITE" />
+                              <Text fx:id="apartmentDescriptioonTxt" fill="WHITE" layoutX="383.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="170.00000924617052" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="View Interested User">
+                     <content>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <AnchorPane fx:id="noIntrestedUserPane" prefHeight="493.0" prefWidth="707.0" style="-fx-background-color: #447477;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Label layoutX="123.0" layoutY="176.0" text="No User have shown intrested on this post" textFill="WHITE">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font></Label>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane fx:id="apartmentInterestedUserPane" prefHeight="493.0" prefWidth="697.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <TableView fx:id="apartmentInterestedUserTable" layoutX="49.0" layoutY="50.0" prefHeight="428.0" prefWidth="424.0">
+                                       <columns>
+                                          <TableColumn fx:id="interestedUsernameColumn" prefWidth="182.0" resizable="false" text="List of Interested User" />
+                                          <TableColumn fx:id="dateInterestedColumn" prefWidth="239.0" text="Date Showing Interested" />
+                                          <TableColumn fx:id="interestedIdColumn" prefWidth="37.0" text="id" visible="false" />
+                                       </columns>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="Select user">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <AnchorPane fx:id="noselectUserPane" prefHeight="493.0" prefWidth="707.0" style="-fx-background-color: #447477;" visible="false">
+                                 <children>
+                                    <Label fx:id="noselectUserLbl" layoutX="115.0" layoutY="137.0" text="No User have shown intrested on this post" textFill="#f2eeee">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font></Label>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane fx:id="selectUserPane" prefHeight="493.0" prefWidth="697.0">
+                                 <children>
+                                    <AnchorPane fx:id="userInteretedProfilePane" layoutX="376.0" layoutY="35.0" prefHeight="436.0" prefWidth="264.0" style="-fx-background-color: #447477; -fx-background-radius: 10;" visible="false">
+                                       <children>
+                                          <Circle fx:id="profileCircle" fill="DODGERBLUE" layoutX="76.0" layoutY="55.0" radius="43.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                                          <Label fx:id="profileUsername" layoutX="33.0" layoutY="123.0" prefHeight="30.0" prefWidth="205.0" text="username" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="profilename" layoutX="32.0" layoutY="151.0" text="First Name" textFill="WHITE" />
+                                          <Label fx:id="profileDOB" layoutX="93.0" layoutY="177.0" text="DOB" textFill="WHITE" />
+                                          <Label fx:id="profileAddress" layoutX="96.0" layoutY="200.0" text="Address" textFill="WHITE" />
+                                          <Label layoutX="54.0" layoutY="225.0" text="Post for room" textFill="WHITE" />
+                                          <Label layoutX="55.0" layoutY="251.0" text="Post For House" textFill="WHITE" />
+                                          <Label layoutX="55.0" layoutY="277.0" text="Post For Apartment" textFill="WHITE" />
+                                          <Label fx:id="roomLabel" layoutX="40.0" layoutY="277.0" text="2" textFill="WHITE" />
+                                          <Label fx:id="houseLabel" layoutX="39.0" layoutY="250.0" text="1" textFill="WHITE" />
+                                          <Label fx:id="apartmentLabel" layoutX="37.0" layoutY="225.0" text="3" textFill="WHITE" />
+                                          <Label layoutX="35.0" layoutY="200.0" text="Address: " textFill="WHITE" />
+                                          <Label layoutX="33.0" layoutY="177.0" text="DOB: " textFill="WHITE" />
+                                          <Label layoutX="32.0" layoutY="331.0" text="Profile Description" textFill="WHITE" underline="true" />
+                                          <Text fx:id="profileDescription" fill="WHITE" layoutX="34.0" layoutY="368.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                                          <Label fx:id="activeLabel" layoutX="32.0" layoutY="111.0" text="Inactive" textFill="#eb0d0d" />
+                                          <MaterialDesignIconView fx:id="activeGlyph" fill="#64dd62" glyphName="BRIGHTNESS_1" layoutX="95.0" layoutY="122.0" />
+                                          <MaterialDesignIconView fx:id="inactiveGlyph" fill="#eb0d0d" glyphName="BRIGHTNESS_1" layoutX="95.0" layoutY="122.0" />
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane fx:id="profileBlockPane" layoutX="376.0" layoutY="35.0" prefHeight="436.0" prefWidth="264.0" style="-fx-background-color: #447477; -fx-background-radius: 10;" visible="false">
+                                       <children>
+                                          <Label fx:id="profileBlocknfoLabel" layoutX="26.0" layoutY="71.0" prefHeight="16.0" prefWidth="212.0" text="Label" textFill="WHITE" />
+                                       </children>
+                                    </AnchorPane>
+                                    <ComboBox fx:id="listOfUserInterestedCombo" layoutX="28.0" layoutY="121.0" prefHeight="26.0" prefWidth="198.0" promptText="Interested User List" />
+                                    <Label layoutX="34.0" layoutY="165.0" text="Price For Reserved" textFill="#447477" />
+                                    <GridPane layoutX="36.0" layoutY="181.0" prefHeight="80.0" prefWidth="285.0">
+                                      <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="172.0" minWidth="10.0" prefWidth="132.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="159.0" minWidth="10.0" prefWidth="153.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <Label text="Actual pprice" textFill="#447477" />
+                                          <Label fx:id="actualPriceLbl" text="Calculation" textFill="#447477" GridPane.columnIndex="1" />
+                                          <Label text="+15% Commision" textFill="#447477" GridPane.rowIndex="1" />
+                                          <Label fx:id="commisionPriceLbl" text="Label" textFill="#447477" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <Label text="Total Price" textFill="#447477" GridPane.rowIndex="2" />
+                                          <Label fx:id="totalPriceLbl" text="Label" textFill="#447477" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                       </children>
+                                    </GridPane>
+                                    <Label fx:id="selectUserError" layoutX="44.0" layoutY="357.0" textFill="#447477" />
+                                    <JFXButton fx:id="viewInteresteduser" layoutX="35.0" layoutY="289.0" onAction="#showInnterestedUserProfile" prefHeight="38.0" prefWidth="111.0" style="-fx-background-color: #447477; -fx-background-radius: 10;" text="View Profile" textFill="WHITE" />
+                                    <JFXButton fx:id="BookUserBtn" layoutX="154.0" layoutY="287.0" onAction="#bookedUserForPostedApartment" prefHeight="38.0" prefWidth="88.0" style="-fx-background-color: #447477; -fx-background-radius: 10;" text="Book" textFill="WHITE" visible="false">
+                                       <graphic>
+                                          <FontAwesomeIconView fill="WHITE" glyphName="UNLOCK_ALT" size="20" />
+                                       </graphic>
+                                    </JFXButton>
+                                    <Text fill="#447477" layoutX="29.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select User From Interested to book your posted Information" wrappingWidth="216.99999694526196">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </Text>
+                                    <JFXSpinner fx:id="spinnerSelectingUser" layoutX="262.0" layoutY="290.0" visible="false" />
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="Report options">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                     </content>
+                  </Tab>
+               </tabs>
+            </TabPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

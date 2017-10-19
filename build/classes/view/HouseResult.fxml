@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="196.0" prefWidth="628.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HouseResultController">
+   <children>
+      <AnchorPane fx:id="showInfoPane" layoutX="13.0" layoutY="11.0" prefHeight="169.0" prefWidth="607.0" style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.1), 6.0, 0.7, 0.0,1.5);">
+         <children>
+            <Circle fx:id="imageCircle" fill="DODGERBLUE" layoutX="63.0" layoutY="53.0" radius="39.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+            <Label fx:id="usernameLabel" layoutX="132.0" layoutY="18.0" prefHeight="30.0" prefWidth="125.0" text="username" textFill="#447477">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="posteddate" layoutX="221.0" layoutY="52.0" text="Poested date" textFill="#447477" />
+            <Label layoutX="132.0" layoutY="52.0" text="Posted Date:" textFill="#447477" />
+            <Label fx:id="statusLabel" layoutX="222.0" layoutY="75.0" text="Status" textFill="#447477" />
+            <Label fx:id="visibilityLabel" layoutX="447.0" layoutY="85.0" text="Visibilty" textFill="#447477" visible="false" />
+            <Label layoutX="133.0" layoutY="74.0" text="Status:" textFill="#447477" />
+            <Label layoutX="133.0" layoutY="97.0" text="Location:" textFill="#447477" />
+            <Label fx:id="locationLabel" layoutX="223.0" layoutY="98.0" text="location" textFill="#447477" />
+            <JFXButton fx:id="viewDetailsBtn" layoutX="430.0" layoutY="43.0" onAction="#viewDetailsAction" prefHeight="37.0" prefWidth="148.0" ripplerFill="#c9655a" style="-fx-background-color: #447477; -fx-background-radius: 6;" text="View Details" textFill="WHITE">
+               <graphic>
+                  <MaterialDesignIconView fill="WHITE" glyphName="EYE" size="21" />
+               </graphic>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </JFXButton>
+            <Label fx:id="houseTypeLabel" layoutX="422.0" layoutY="110.0" text="House Type" textFill="#447477" visible="false" />
+            <Label fx:id="id" layoutX="139.0" layoutY="102.0" textFill="#447477" visible="false" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="rooomPane" layoutX="13.0" layoutY="11.0" prefHeight="176.0" prefWidth="607.0" style="-fx-background-color: #447477;" visible="false">
+         <children>
+            <AnchorPane layoutX="393.0" layoutY="15.0" prefHeight="128.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="1.0" layoutY="-1.0" text="Room Description" textFill="WHITE" />
+                  <TextArea fx:id="roomDescription" editable="false" layoutY="19.0" prefHeight="106.0" prefWidth="200.0" wrapText="true" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="44.0" layoutY="9.0" prefHeight="162.0" prefWidth="339.0">
+               <children>
+                  <Label fx:id="roomUsername" layoutX="47.0" layoutY="8.0" prefHeight="30.0" prefWidth="174.0" text="username" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="49.0" layoutY="42.0" text="Posted As" textFill="WHITE" />
+                  <Label fx:id="roomUserTypeLabel" layoutX="124.0" layoutY="42.0" text="userTye" textFill="WHITE" />
+                  <Label layoutX="50.0" layoutY="67.0" text="Searching" textFill="WHITE" />
+                  <Label fx:id="roomSearchingLabel" layoutX="124.0" layoutY="68.0" text="Address" textFill="WHITE" />
+                  <Label layoutX="5.0" layoutY="99.0" text="Room Required: " textFill="WHITE" />
+                  <Label fx:id="roomNumberLabel" layoutX="126.0" layoutY="99.0" text="Label" textFill="WHITE" />
+                  <Label layoutX="46.0" layoutY="125.0" text="End Date:" textFill="WHITE" />
+                  <Label fx:id="roomEndedaDate" layoutX="126.0" layoutY="125.0" text="Label" textFill="WHITE" />
+                  <Label layoutX="229.0" layoutY="61.0" text="Price: " textFill="WHITE" />
+                  <Label fx:id="roomPriceLabel" layoutX="280.0" layoutY="61.0" text="Label" textFill="WHITE" />
+                  <Label layoutX="210.0" layoutY="88.0" text="Paid Type: " textFill="WHITE" />
+                  <Label fx:id="roomPaidtypeLabel" layoutX="285.0" layoutY="87.0" text="Label" textFill="WHITE" />
+               </children>
+            </AnchorPane>
+            <JFXButton fx:id="roomBackBtn" layoutX="13.0" layoutY="9.0" onAction="#roomBackToShowPane" ripplerFill="#245b5b" style="-fx-border-color: white; -fx-border-radius: 6;" text="Back" textFill="#fff4f4" />
+            <JFXButton fx:id="roomShowIntrestedBtn" layoutX="402.0" layoutY="143.0" onAction="#roomIntrested" prefHeight="28.0" prefWidth="174.0" style="-fx-border-color: white; -fx-border-radius: 6;" text="Show Intrested In it" textFill="#fff4f4" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="housePane" layoutX="13.0" layoutY="11.0" prefHeight="176.0" prefWidth="607.0" style="-fx-background-color: #447477;" visible="false">
+         <children>
+            <AnchorPane layoutX="393.0" layoutY="15.0" prefHeight="128.0" prefWidth="200.0">
+               <children>
+                  <Label text="House Description" textFill="WHITE" />
+                  <TextArea fx:id="houseDescription" editable="false" layoutY="19.0" prefHeight="106.0" prefWidth="200.0" wrapText="true" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="44.0" layoutY="9.0" prefHeight="162.0" prefWidth="339.0">
+               <children>
+                  <Label fx:id="houseUsername" layoutX="47.0" layoutY="7.0" prefHeight="30.0" prefWidth="174.0" text="username" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="49.0" layoutY="49.0" text="Posted As" textFill="WHITE" />
+                  <Label fx:id="houseUserTypeLabel" layoutX="124.0" layoutY="49.0" text="userTye" textFill="WHITE" />
+                  <Label layoutX="49.0" layoutY="75.0" text="Searching" textFill="WHITE" />
+                  <Label fx:id="houseSearchingLabel" layoutX="123.0" layoutY="76.0" text="Address" textFill="WHITE" />
+                  <Label layoutX="17.0" layoutY="102.0" text="House Number" textFill="WHITE" />
+                  <Label fx:id="houseNumberLabel" layoutX="126.0" layoutY="102.0" text="Label" textFill="WHITE" />
+                  <Label layoutX="46.0" layoutY="126.0" text="End Date:" textFill="WHITE" />
+                  <Label fx:id="houseEndedaDate" layoutX="126.0" layoutY="126.0" text="Label" textFill="WHITE" />
+                  <Label layoutX="233.0" layoutY="104.0" text="Price: " textFill="WHITE" />
+                  <Label fx:id="housePriceLabel" layoutX="284.0" layoutY="104.0" text="Label" textFill="WHITE" />
+                  <Label layoutX="211.0" layoutY="129.0" text="Paid Type: " textFill="WHITE" />
+                  <Label fx:id="housePaidType" layoutX="286.0" layoutY="128.0" text="Label" textFill="WHITE" />
+               </children>
+            </AnchorPane>
+            <JFXButton fx:id="houseBackBtn" layoutX="13.0" layoutY="9.0" onAction="#houseBackToShowPane" ripplerFill="#245b5b" style="-fx-border-color: white; -fx-border-radius: 6;" text="Back" />
+            <JFXButton fx:id="houseShowIntrestedBtn" layoutX="408.0" layoutY="143.0" onAction="#houseIntrested" prefHeight="28.0" prefWidth="174.0" style="-fx-border-color: white; -fx-border-radius: 6;" text="Show Intrested In it" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="apartmentPane" layoutX="13.0" layoutY="11.0" prefHeight="176.0" prefWidth="607.0" style="-fx-background-color: #447477;" visible="false">
+         <children>
+            <AnchorPane layoutX="393.0" layoutY="15.0" prefHeight="128.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="3.0" layoutY="-1.0" text="Apartment Description" textFill="WHITE" />
+                  <TextArea fx:id="apartmentDescription" editable="false" layoutY="19.0" prefHeight="106.0" prefWidth="200.0" wrapText="true" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="27.0" layoutY="9.0" prefHeight="162.0" prefWidth="356.0">
+               <children>
+                  <Label fx:id="apartmentProfile" layoutX="53.0" layoutY="-4.0" prefHeight="30.0" prefWidth="174.0" text="username" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="33.0" layoutY="55.0" text="Posted As" textFill="WHITE" />
+                  <Label fx:id="apartmentUserTypeLabel" layoutX="108.0" layoutY="55.0" text="userTye" textFill="WHITE" />
+                  <Label layoutX="-15.0" layoutY="80.0" text="Apartment Name: " textFill="WHITE" />
+                  <Label fx:id="apartmentNameLabel" layoutX="109.0" layoutY="80.0" text="Label" textFill="WHITE" />
+                  <Label layoutX="33.0" layoutY="105.0" text="Searching: " textFill="WHITE" />
+                  <Label fx:id="apartmentSearchingLabel" layoutX="108.0" layoutY="106.0" text="Address" textFill="WHITE" />
+                  <Label layoutX="11.0" layoutY="135.0" text="Post End Date:" textFill="WHITE" />
+                  <Label fx:id="apartmentEndedDate" layoutX="115.0" layoutY="135.0" text="Label" textFill="WHITE" />
+                  <Label layoutX="238.0" layoutY="106.0" text="Price: " textFill="WHITE" />
+                  <Label fx:id="apartmentPriceLabel" layoutX="289.0" layoutY="106.0" text="Label" textFill="WHITE" />
+                  <Label layoutX="216.0" layoutY="131.0" text="Paid Type: " textFill="WHITE" />
+                  <Label fx:id="apartmentPaidtypeLabel" layoutX="291.0" layoutY="132.0" text="Label" textFill="WHITE" />
+                  <Label layoutX="-12.0" layoutY="30.0" text="Apartment Type: " textFill="WHITE" />
+                  <Label fx:id="apartmentType" layoutX="109.0" layoutY="30.0" text="label" textFill="WHITE" />
+               </children>
+            </AnchorPane>
+            <JFXButton fx:id="apartmentBackBtn" layoutX="1.0" layoutY="5.0" onAction="#apartmentBackToShowPane" ripplerFill="#245b5b" style="-fx-border-color: white; -fx-border-radius: 6;" text="Back" textFill="#f2ebeb" />
+            <JFXButton fx:id="apartmentshowIntrestedBtn" layoutX="404.0" layoutY="144.0" onAction="#apartmentIntrested" prefHeight="28.0" prefWidth="174.0" style="-fx-border-color: white; -fx-border-radius: 6;" text="Show Intrested In it" textFill="#f2ebeb" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="intrestedPane" layoutX="13.0" layoutY="11.0" prefHeight="176.0" prefWidth="607.0" style="-fx-background-color: #447477;" visible="false">
+         <children>
+            <JFXButton fx:id="backafterIntrestedBtn" layoutX="211.0" layoutY="96.0" onAction="#IntrerstedBacktoShowPane" prefHeight="37.0" prefWidth="125.0" style="-fx-border-color: white; -fx-border-radius: 7;" text="Back" textFill="WHITE">
+               <font>
+                  <Font size="23.0" />
+               </font></JFXButton>
+            <Label fx:id="intrestedLabel" layoutX="159.0" layoutY="65.0" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

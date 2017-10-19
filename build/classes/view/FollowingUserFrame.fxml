@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXListView?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="533.0" prefWidth="737.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FollowingUserFrameController">
+   <children>
+      <AnchorPane fx:id="noresultPane" layoutX="10.0" layoutY="10.0" prefHeight="581.0" prefWidth="807.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Text layoutX="192.0" layoutY="228.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You have not Followed any User" wrappingWidth="399.99999862909317">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Text>
+            <MaterialDesignIconView glyphName="EMOTICON_NEUTRAL" layoutX="296.0" layoutY="179.0" size="120" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="resultPane" layoutX="18.0" layoutY="10.0" prefHeight="536.0" prefWidth="728.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label fx:id="numberOfFollowingUser" layoutX="46.0" layoutY="16.0" text="asdfklasdnk" />
+            <JFXListView fx:id="listfollowingUser" layoutX="44.0" layoutY="40.0" prefHeight="483.0" prefWidth="655.0" style="-fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.3), 7.0, 0.0, 0.0,0.0); -fx-border-color: white; -fx-border-radius: 10;" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

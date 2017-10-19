@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="184.0" prefWidth="619.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UserResultController">
+   <children>
+      <AnchorPane fx:id="showPane" layoutX="15.0" layoutY="13.0" prefHeight="159.0" prefWidth="592.0" style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.1), 6.0, 0.7, 0.0,1.5);">
+         <children>
+            <Circle fx:id="imageCircle" fill="DODGERBLUE" layoutX="61.0" layoutY="58.0" radius="47.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+            <Label fx:id="usernameLabel" layoutX="132.0" layoutY="7.0" prefHeight="30.0" prefWidth="244.0" text="username" textFill="#447477">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="132.0" layoutY="38.0" text="Gender:" textFill="#447477">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="visiibiltyLabel" layoutX="134.0" layoutY="62.0" text="Visibilty" textFill="#60dee4" visible="false" />
+            <Label fx:id="genderLabel" layoutX="197.0" layoutY="39.0" text="Gender" textFill="#447477" />
+            <JFXButton fx:id="viewProfileBtn" layoutX="383.0" layoutY="24.0" onAction="#viewProfile" prefHeight="37.0" prefWidth="149.0" ripplerFill="#c9655a" style="-fx-background-color: #447477;" text="View Profile" textFill="WHITE">
+               <graphic>
+                  <MaterialDesignIconView fill="WHITE" glyphName="EYE" size="21" />
+               </graphic>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="followBtn" layoutX="387.0" layoutY="76.0" onAction="#followBtn" prefHeight="37.0" prefWidth="143.0" style="-fx-background-color: #447477;" text="Follow" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIconView fill="#f5f2f2" glyphName="STREET_VIEW" size="30" />
+               </graphic>
+            </JFXButton>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="userProfilePane" layoutX="15.0" layoutY="10.0" prefHeight="169.0" prefWidth="592.0" style="-fx-background-color: #447477; -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.1), 6.0, 0.7, 0.0,1.5);" visible="false">
+         <children>
+            <AnchorPane layoutX="371.0" layoutY="9.0" prefHeight="142.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="14.0" layoutY="-8.0" text="Profile Description" textFill="WHITE" />
+                  <TextArea fx:id="profileDescription" editable="false" layoutY="16.0" prefHeight="126.0" prefWidth="200.0" wrapText="true" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="44.0" layoutY="9.0" prefHeight="142.0" prefWidth="339.0">
+               <children>
+                  <Circle fx:id="profileCircle" fill="DODGERBLUE" layoutX="64.0" layoutY="52.0" radius="41.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                  <Label fx:id="profileUsername" layoutX="126.0" layoutY="-2.0" prefHeight="30.0" prefWidth="174.0" text="username" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="profilename" layoutX="130.0" layoutY="27.0" text="First Name" textFill="WHITE" />
+                  <Label fx:id="profileDOB" layoutX="196.0" layoutY="48.0" text="DOB" textFill="WHITE" />
+                  <Label fx:id="profileAddress" layoutX="195.0" layoutY="67.0" text="Address" textFill="WHITE" />
+                  <Label layoutX="149.0" layoutY="83.0" text="Post for room" textFill="WHITE" />
+                  <Label layoutX="149.0" layoutY="102.0" text="Post For House" textFill="WHITE" />
+                  <Label layoutX="150.0" layoutY="121.0" text="Post For Apartment" textFill="WHITE" />
+                  <Label fx:id="roomLabel" layoutX="132.0" layoutY="83.0" text="2" textFill="#eaebeb" />
+                  <Label fx:id="houseLabel" layoutX="131.0" layoutY="102.0" text="1" textFill="#eaebeb" />
+                  <Label fx:id="apartmentLabel" layoutX="131.0" layoutY="121.0" text="3" textFill="#eaebeb" />
+                  <Label layoutX="131.0" layoutY="67.0" text="Address: " textFill="WHITE" />
+                  <Label layoutX="131.0" layoutY="48.0" text="DOB: " textFill="WHITE" />
+               </children>
+            </AnchorPane>
+            <JFXButton fx:id="profileBackBtn" layoutX="13.0" layoutY="9.0" onAction="#backToShowPane" ripplerFill="#245b5b" style="-fx-border-color: white; -fx-background-radius: 10; -fx-border-radius: 5;" text="Back" textFill="#fffafa" />
+         </children></AnchorPane>
+      <AnchorPane fx:id="requestPane" layoutX="15.0" layoutY="10.0" prefHeight="169.0" prefWidth="592.0" style="-fx-background-color: white;" visible="false">
+         <children>
+            <JFXButton fx:id="requestBackBtn" layoutX="240.0" layoutY="85.0" onAction="#fromRequestToShowPane" prefHeight="37.0" prefWidth="112.0" style="-fx-background-color: #447477;" text="Back" textFill="#e1dddd" />
+            <Label fx:id="requestLabel" layoutX="91.0" layoutY="14.0" prefHeight="60.0" prefWidth="393.0" text="You has sent Request to getName" textFill="#447477">
+               <font>
+                  <Font size="20.0" />
+               </font></Label>
+         </children>
+         <effect>
+            <Glow />
+         </effect>
+      </AnchorPane>
+   </children>
+</AnchorPane>

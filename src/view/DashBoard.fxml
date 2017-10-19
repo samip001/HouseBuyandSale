@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="571.0" prefWidth="812.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DashBoardController">
+   <children>
+      <HBox prefHeight="583.0" prefWidth="732.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane prefHeight="583.0" prefWidth="41.0" style="-fx-background-color: #447477;">
+               <children>
+                  <JFXButton fx:id="profileBtn" contentDisplay="GRAPHIC_ONLY" layoutX="-1.0" layoutY="88.0" onAction="#viewuserProfile" onMouseEntered="#showProfileInfo" onMouseExited="#hideProfileInfo" prefHeight="28.0" prefWidth="41.0" ripplerFill="BLACK" text="Profile">
+                     <graphic>
+                        <MaterialDesignIconView fill="WHITE" glyphName="ACCOUNT_CIRCLE" size="22" text="" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="searchBtn" contentDisplay="GRAPHIC_ONLY" layoutX="-1.0" layoutY="124.0" onAction="#searchAction" onMouseEntered="#showSearchInfo" onMouseExited="#hideSearchInfo" prefHeight="28.0" prefWidth="41.0" ripplerFill="BLACK" text="Search">
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="20" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="postHouseBtn" contentDisplay="GRAPHIC_ONLY" layoutY="159.0" onAction="#postAboutHouseInfo" onMouseEntered="#showPostInfo" onMouseExited="#hdePostInfo" prefHeight="28.0" prefWidth="41.0" ripplerFill="BLACK" text="Add">
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="HOME" size="20" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="manageBtn" contentDisplay="GRAPHIC_ONLY" layoutX="-1.0" layoutY="193.0" onAction="#manageAction" onMouseEntered="#showManageHouseInfo" onMouseExited="#hideManageHouseInfo" prefHeight="28.0" prefWidth="41.0" ripplerFill="BLACK" text="Manage House">
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="COGS" size="20" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="followingUsrBtn" contentDisplay="GRAPHIC_ONLY" layoutX="-2.0" layoutY="227.0" onAction="#viewMeFollowingOtherUser" onMouseEntered="#showFollowingInfo" onMouseExited="#hideFollowingInfo" prefHeight="28.0" prefWidth="41.0" ripplerFill="BLACK" text="Following">
+                     <graphic>
+                        <MaterialDesignIconView fill="WHITE" glyphName="RUN" size="24" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="followedUsrBtn" contentDisplay="GRAPHIC_ONLY" layoutX="-2.0" layoutY="265.0" onAction="#viewOtherFollwMe" onMouseEntered="#showFollowersInfo" onMouseExited="#hideFollowersInfo" prefHeight="28.0" prefWidth="41.0" ripplerFill="BLACK" text="Followed User">
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="USER_SECRET" size="20" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="confirmBooingRequestBtn" contentDisplay="GRAPHIC_ONLY" layoutX="-1.0" layoutY="299.0" onAction="#viewBookingRequest" onMouseEntered="#showBookedRequestInfo" onMouseExited="#hideBookedRequestInfo" prefHeight="28.0" prefWidth="41.0" ripplerFill="BLACK" text="Booked Request">
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="GG_CIRCLE" size="21" />
+                     </graphic></JFXButton>
+                  <JFXButton fx:id="interestedHouseListBtn" contentDisplay="GRAPHIC_ONLY" layoutX="-2.0" layoutY="330.0" onAction="#viewInterestedList" onMouseEntered="#showInterestedListInfo" onMouseExited="#hideInterestedListInfo" prefHeight="28.0" prefWidth="41.0" ripplerFill="BLACK" text="Interested List">
+                     <graphic>
+                        <MaterialDesignIconView fill="WHITE" glyphName="COMMENT_CHECK_OUTLINE" size="22" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="bookedHouseList" contentDisplay="GRAPHIC_ONLY" layoutX="-2.0" layoutY="368.0" onAction="#viewBookedList" onMouseEntered="#showBookedListInfo" onMouseExited="#hideBookedListInfo" prefHeight="28.0" prefWidth="41.0" ripplerFill="BLACK" text="Booked List">
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="BOLD" size="20" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="followRequestBtn" contentDisplay="GRAPHIC_ONLY" layoutX="-2.0" layoutY="397.0" onAction="#viewFollowRequest" onMouseEntered="#showFollowRequestInfo" onMouseExited="#hideFollowRequestInfo" prefHeight="28.0" prefWidth="41.0" ripplerFill="BLACK" text="Follow Request">
+                     <graphic>
+                        <MaterialDesignIconView fill="WHITE" glyphName="EYE" size="22" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="notificationBtn" contentDisplay="GRAPHIC_ONLY" layoutX="-2.0" layoutY="433.0" onAction="#viewNotifications" onMouseEntered="#showNotificationInfo" onMouseExited="#hideNotificationInfo" prefHeight="28.0" prefWidth="41.0" ripplerFill="BLACK" text="Notification">
+                     <graphic>
+                        <MaterialDesignIconView fill="WHITE" glyphName="BELL_RING_OUTLINE" size="20" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="helpBtn" contentDisplay="GRAPHIC_ONLY" layoutX="-2.0" layoutY="540.0" onAction="#helpUsermanualActivity" onMouseEntered="#showHelpInfo" onMouseExited="#hideHelpInfo" prefHeight="28.0" prefWidth="41.0" ripplerFill="BLACK" text="Help">
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="INFO_CIRCLE" size="18" />
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="583.0" prefWidth="690.0">
+               <children>
+                  <AnchorPane fx:id="activityPane" layoutX="11.0" layoutY="47.0" prefHeight="519.0" prefWidth="761.0" />
+                  <AnchorPane prefHeight="41.0" prefWidth="772.0" style="-fx-background-color: linear-gradient(#4c7a7c,white);">
+                     <children>
+                        <MenuButton fx:id="mbtnUsrInfoBox" layoutX="604.0" layoutY="1.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="167.0" style="-fx-background-color: linear-gradient(#4c7a7c,white);">
+                           <items>
+                              <MenuItem fx:id="miPopOver" mnemonicParsing="false">
+                                 <graphic>
+                                    <AnchorPane prefHeight="200.0" prefWidth="120.0">
+                                       <children>
+                                          <VBox prefHeight="0.0" prefWidth="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <children>
+                                                <Circle fx:id="circleImgUsr" fill="DODGERBLUE" radius="40.0" stroke="#447477" strokeType="INSIDE" />
+                                                <Label fx:id="lblFullname" alignment="CENTER" contentDisplay="CENTER" text="Label" />
+                                                <Label fx:id="lblDob" alignment="CENTER" contentDisplay="CENTER" text="Label" />
+                                                <Label fx:id="lblAddress" alignment="CENTER" contentDisplay="CENTER" text="Label" />
+                                                <Label fx:id="lblGender" alignment="CENTER" contentDisplay="CENTER" text="Label" />
+                                                <Button fx:id="LogOutBtn" mnemonicParsing="false" onAction="#LogOutAction" prefHeight="40.0" prefWidth="196.0" style="-fx-background-color: #4c7a7c;" text="Logout" textFill="WHITE">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font></Button>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </AnchorPane>
+                                 </graphic>
+                              </MenuItem>
+                           </items>
+                           <graphic>
+                              <AnchorPane prefHeight="20.0" prefWidth="120.0">
+                                 <children>
+                                    <Circle fx:id="imgUsrTop" fill="#447477" layoutX="49.0" layoutY="24.0" radius="16.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                                    <Label fx:id="lblUsrName" layoutX="68.0" layoutY="17.0" prefHeight="17.0" prefWidth="71.0" text="Username" textFill="WHITE" />
+                                 </children>
+                              </AnchorPane>
+                           </graphic>
+                           <padding>
+                              <Insets left="-15.0" top="-10.0" />
+                           </padding>
+                        </MenuButton>
+                        <Label fx:id="indcateTxt" layoutX="12.0" layoutY="10.0" text="Dashboard" textFill="WHITE">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="landiingPane" layoutY="40.0" prefHeight="571.0" prefWidth="773.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+                     <children>
+                        <Pane layoutX="13.0" layoutY="3.0" prefHeight="519.0" prefWidth="747.0" style="-fx-background-color: white;">
+                           <children>
+                              <AnchorPane layoutX="98.0" layoutY="176.0" style="-fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.30), 6.0, 0.3, 0,1); -fx-background-color: #4c7a7c;">
+                                 <children>
+                                    <JFXButton fx:id="landingManageProfileBtn" alignment="BOTTOM_CENTER" contentDisplay="TOP" onAction="#landingToManageUserProfile" prefHeight="91.0" prefWidth="150.0" text="Manage Profile" textFill="WHITE" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <graphic>
+                                          <MaterialDesignIconView fill="WHITE" glyphName="ACCOUNT_CHECK" size="50" text="" />
+                                       </graphic>
+                                    </JFXButton>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane layoutX="276.0" layoutY="176.0" prefHeight="106.0" prefWidth="150.0" style="-fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.30), 6.0, 0.3, 0,1); -fx-background-color: #4c7a7c;">
+                                 <children>
+                                    <JFXButton fx:id="landingNotificationBtn" alignment="BOTTOM_CENTER" contentDisplay="TOP" layoutY="-1.0" onAction="#landingToNotification" prefHeight="91.0" prefWidth="150.0" text="Notifications" textFill="WHITE" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <graphic>
+                                          <MaterialDesignIconView fill="WHITE" glyphName="BELL_RING_OUTLINE" size="50" />
+                                       </graphic>
+                                    </JFXButton>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane layoutX="459.0" layoutY="176.0" prefHeight="106.0" prefWidth="150.0" style="-fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.30), 6.0, 0.3, 0,1); -fx-background-color: #4c7a7c;">
+                                 <children>
+                                    <JFXButton fx:id="landingPostHouseBtn" alignment="BOTTOM_CENTER" contentDisplay="TOP" onAction="#landingToPostHouse" prefHeight="91.0" prefWidth="150.0" text="Post House Information" textFill="WHITE" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <graphic>
+                                          <MaterialDesignIconView fill="WHITE" glyphName="HOME" size="50" />
+                                       </graphic>
+                                    </JFXButton>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane layoutX="98.0" layoutY="319.0" prefHeight="106.0" prefWidth="150.0" style="-fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.30), 6.0, 0.3, 0,1); -fx-background-color: #4c7a7c;">
+                                 <children>
+                                    <JFXButton fx:id="landingFollowRequestBtn" alignment="BOTTOM_CENTER" contentDisplay="TOP" onAction="#landingToFollowRequest" prefHeight="91.0" prefWidth="150.0" text="Follow Request" textFill="WHITE" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <graphic>
+                                          <MaterialDesignIconView fill="WHITE" glyphName="FOURSQUARE" size="50" />
+                                       </graphic>
+                                    </JFXButton>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane layoutX="276.0" layoutY="319.0" prefHeight="106.0" prefWidth="150.0" style="-fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.30), 6.0, 0.3, 0,1); -fx-background-color: #4c7a7c;">
+                                 <children>
+                                    <JFXButton fx:id="landingBookedListBtn" alignment="BOTTOM_CENTER" contentDisplay="TOP" layoutY="-1.0" onAction="#landingToBookedList" prefHeight="91.0" prefWidth="150.0" text="Booked House List" textFill="WHITE" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <graphic>
+                                          <FontAwesomeIconView fill="WHITE" glyphName="BOLD" size="50" />
+                                       </graphic>
+                                    </JFXButton>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane layoutX="459.0" layoutY="319.0" prefHeight="106.0" prefWidth="150.0" style="-fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.30), 6.0, 0.3, 0,1); -fx-background-color: #4c7a7c;">
+                                 <children>
+                                    <JFXButton fx:id="landingInterestedListBtn" alignment="BOTTOM_CENTER" contentDisplay="TOP" onAction="#landingToInterestedList" prefHeight="91.0" prefWidth="150.0" text="House Interested List" textFill="WHITE" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <graphic>
+                                          <MaterialDesignIconView fill="WHITE" glyphName="HUMAN_MALE_FEMALE" size="50" />
+                                       </graphic>
+                                    </JFXButton>
+                                 </children>
+                              </AnchorPane>
+                              <Pane layoutX="94.0" layoutY="47.0" prefHeight="106.0" prefWidth="519.0" style="-fx-background-color: white; -fx-background-radius: 4; -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.1), 6.0, 0.7, 0.0,1.5);">
+                                 <children>
+                                    <Pane layoutX="14.0" layoutY="-15.0" prefHeight="71.0" prefWidth="73.0" style="-fx-background-color: #4c7a7c; -fx-background-radius: 4; -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.1), 6.0, 0.7, 0.0,1.5);">
+                                       <children>
+                                          <FontAwesomeIconView fill="WHITE" glyphName="BANK" layoutX="17.0" layoutY="46.0" size="40" />
+                                       </children>
+                                    </Pane>
+                                    <Label layoutX="11.0" layoutY="71.0" minHeight="0.0" prefHeight="5.0" prefWidth="486.0" style="-fx-background-color: #4c7a7c; -fx-border-radius: 5; -fx-background-radius: 5;" />
+                                    <Label alignment="CENTER_RIGHT" layoutX="86.0" layoutY="-2.0" prefHeight="22.0" prefWidth="52.0" text="Room" textFill="#8d8b8b">
+                                       <font>
+                                          <Font name="Roboto Black" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="roomNumberLabel" alignment="TOP_RIGHT" layoutX="88.0" layoutY="17.0" prefHeight="35.0" prefWidth="52.0" text="103">
+                                       <font>
+                                          <Font name="Roboto Black" size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <Pane layoutX="169.0" layoutY="-15.0" prefHeight="71.0" prefWidth="73.0" style="-fx-background-color: #4c7a7c; -fx-background-radius: 4; -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.1), 6.0, 0.7, 0.0,1.5);">
+                                       <children>
+                                          <FontAwesomeIconView fill="#ffeeee" glyphName="HOME" layoutX="18.0" layoutY="49.0" size="40" />
+                                       </children>
+                                    </Pane>
+                                    <Pane layoutX="337.0" layoutY="-17.0" prefHeight="71.0" prefWidth="73.0" style="-fx-background-color: #4c7a7c; -fx-background-radius: 4; -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.1), 6.0, 0.7, 0.0,1.5);">
+                                       <children>
+                                          <FontAwesomeIconView fill="WHITE" glyphName="BUILDING" layoutX="20.0" layoutY="49.0" size="40" />
+                                       </children>
+                                    </Pane>
+                                    <Label alignment="CENTER_RIGHT" layoutX="253.0" layoutY="-3.0" prefHeight="22.0" prefWidth="52.0" text="House" textFill="#8d8b8b">
+                                       <font>
+                                          <Font name="Roboto Black" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="houseNumberLabel" alignment="TOP_RIGHT" layoutX="250.0" layoutY="13.0" prefHeight="35.0" prefWidth="52.0" text="103">
+                                       <font>
+                                          <Font name="Roboto Black" size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="CENTER_RIGHT" layoutX="422.0" layoutY="-3.0" prefHeight="22.0" prefWidth="73.0" text="Apartment" textFill="#8d8b8b">
+                                       <font>
+                                          <Font name="Roboto Black" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="apartmentNumberLabel" alignment="TOP_RIGHT" layoutX="417.0" layoutY="13.0" prefHeight="35.0" prefWidth="52.0" text="103">
+                                       <font>
+                                          <Font name="Roboto Black" size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="185.0" layoutY="84.0" text="Number of Post" />
+                                 </children>
+                              </Pane>
+                           </children>
+                        </Pane>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="profileInfoPane" layoutY="91.0" prefHeight="25.0" prefWidth="52.0" style="-fx-background-color: #447477; -fx-border-color: white;" visible="false">
+                     <children>
+                        <Label layoutX="5.0" layoutY="2.0" text="Profile " textFill="WHITE">
+                           <font>
+                              <Font size="13.0" />
+                           </font></Label>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="searchPane" layoutY="122.0" onMouseEntered="#searchPaneVisible" onMouseExited="#searchPaneInvisible" prefHeight="52.0" prefWidth="73.0" style="-fx-background-color: #447477; -fx-border-color: white;" visible="false">
+                     <children>
+                        <VBox layoutX="-2.0" layoutY="-74.0" prefHeight="126.0" prefWidth="98.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label prefHeight="17.0" prefWidth="73.0" text="     Search" textAlignment="CENTER" textFill="#140101">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </Label>
+                              <JFXButton fx:id="searchUsrBtn" onAction="#searchUserAction" prefHeight="0.0" prefWidth="71.0" style="-fx-border-color: white; -fx-border-radius: 3;" text="User" textFill="WHITE" />
+                              <JFXButton fx:id="searchHouseBtn" onAction="#searchHomeAction" prefHeight="26.0" prefWidth="78.0" style="-fx-border-color: white; -fx-border-radius: 3;" text="House" textFill="WHITE" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="postInfoPane" layoutY="160.0" prefHeight="32.0" prefWidth="73.0" style="-fx-background-color: #447477; -fx-border-color: white;" visible="false">
+                     <children>
+                        <Label layoutX="3.0" layoutY="8.0" text="House Post" textFill="WHITE">
+                           <font>
+                              <Font size="13.0" />
+                           </font></Label>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="managePane" layoutY="190.0" onMouseEntered="#managePaneVisible" onMouseExited="#managePaneInvisible" prefHeight="71.0" prefWidth="96.0" style="-fx-background-color: #447477; -fx-border-color: white;" visible="false">
+                     <children>
+                        <VBox layoutX="-2.0" layoutY="-74.0" prefHeight="126.0" prefWidth="98.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label text="   Manage Post" textFill="#320000">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </Label>
+                              <JFXButton fx:id="manageRoomBtn" onAction="#manageRoomAction" prefHeight="25.0" prefWidth="95.0" style="-fx-border-color: white; -fx-border-radius: 3;" text="Room" textFill="WHITE" />
+                              <JFXButton fx:id="manageHouseBtn" onAction="#manageHouseAction" prefHeight="25.0" prefWidth="98.0" style="-fx-border-color: white; -fx-border-radius: 3;" text="House" textFill="WHITE" />
+                              <JFXButton fx:id="manageApartmentBtn" onAction="#manageApartmentAction" prefHeight="25.0" prefWidth="98.0" style="-fx-border-color: white; -fx-border-radius: 3;" text="Apartment" textFill="WHITE" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="followingInfoPane" layoutY="231.0" prefHeight="25.0" prefWidth="65.0" style="-fx-background-color: #447477; -fx-border-color: white;" visible="false">
+                     <children>
+                        <Label layoutX="4.0" layoutY="3.0" text="Following" textFill="WHITE">
+                           <font>
+                              <Font size="13.0" />
+                           </font></Label>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="followersInfoPane" layoutY="265.0" prefHeight="22.0" prefWidth="61.0" style="-fx-background-color: #447477; -fx-border-color: white;" visible="false">
+                     <children>
+                        <Label layoutX="4.0" layoutY="2.0" text="Followers" textFill="WHITE">
+                           <font>
+                              <Font size="13.0" />
+                           </font></Label>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="bookrequestInfoPane" layoutY="302.0" prefHeight="28.0" prefWidth="128.0" style="-fx-background-color: #447477; -fx-border-color: white;" visible="false">
+                     <children>
+                        <Label layoutX="4.0" layoutY="6.0" text="Confirm Book Request" textFill="WHITE" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="interestedListInfoPane" layoutY="332.0" prefHeight="28.0" prefWidth="128.0" style="-fx-background-color: #447477; -fx-border-color: white;" visible="false">
+                     <children>
+                        <Label layoutX="4.0" layoutY="6.0" text="Shown Interested List" textFill="WHITE" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="bookedListInfoPane" layoutY="369.0" prefHeight="28.0" prefWidth="108.0" style="-fx-background-color: #447477; -fx-border-color: white;" visible="false">
+                     <children>
+                        <Label layoutX="3.0" layoutY="6.0" text="House Booked List" textFill="WHITE" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="followrequestInfoPane" layoutY="399.0" prefHeight="28.0" prefWidth="114.0" style="-fx-background-color: #447477; -fx-border-color: white;" visible="false">
+                     <children>
+                        <Label layoutX="2.0" layoutY="6.0" text="User Follow Request" textFill="WHITE" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="notificationInfoPane" layoutY="432.0" prefHeight="28.0" prefWidth="73.0" style="-fx-background-color: #447477; -fx-border-color: white;" visible="false">
+                     <children>
+                        <Label fx:id="notificationLabel" layoutX="5.0" layoutY="6.0" text="Notification" textFill="WHITE" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="helpInfoPane" layoutY="542.0" prefHeight="28.0" prefWidth="41.0" style="-fx-background-color: #447477; -fx-border-color: white;" visible="false">
+                     <children>
+                        <Label layoutX="5.0" layoutY="6.0" text="Help" textFill="WHITE" />
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

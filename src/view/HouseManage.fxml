@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXSpinner?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="537.0" prefWidth="734.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HouseManageControl">
+   <children>
+      <AnchorPane fx:id="noresultPane" prefHeight="537.0" prefWidth="734.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <JFXButton fx:id="noresultRefreshBtn" layoutX="264.0" layoutY="281.0" onAction="#refreshForNoResultPane" style="-fx-background-color: #447477; -fx-background-radius: 6;" text="Refresh" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <graphic>
+                  <MaterialDesignIconView fill="WHITE" glyphName="AUTORENEW" size="30" />
+               </graphic></JFXButton>
+            <FontAwesomeIconView fill="#447477" glyphName="FROWN_ALT" layoutX="239.0" layoutY="209.0" size="200" />
+            <Label layoutX="142.0" layoutY="236.0" text="No Posted Information Found For House To Manage" textFill="#447477">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="tablePane" layoutX="24.0" layoutY="16.0" prefHeight="526.0" prefWidth="690.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label fx:id="InfoLabel" layoutX="29.0" layoutY="24.0" text="List Of Information Posted for House" textFill="#447477" />
+            <AnchorPane layoutX="29.0" layoutY="52.0" prefHeight="454.0" prefWidth="646.0" AnchorPane.bottomAnchor="31.0">
+               <children>
+                  <TableView fx:id="tableHouseData" editable="true" layoutY="-4.0" onMousePressed="#viewDetails" prefHeight="419.0" prefWidth="646.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-4.0">
+                     <columns>
+                        <TableColumn fx:id="idColumn" prefWidth="26.0" resizable="false" text="id" visible="false" />
+                        <TableColumn fx:id="locationColumn" prefWidth="72.0" resizable="false" text="Location" />
+                        <TableColumn fx:id="houseNoColumn" prefWidth="81.0" resizable="false" text="House No" />
+                        <TableColumn fx:id="houseForColumn" prefWidth="85.0" text="House For" />
+                        <TableColumn fx:id="postedDate" prefWidth="97.0" resizable="false" text="Posted Date" />
+                        <TableColumn fx:id="postEndDateColumn" prefWidth="112.0" resizable="false" text="Post End Date" />
+                        <TableColumn fx:id="priceColumn" prefWidth="103.0" resizable="false" text="Price" />
+                        <TableColumn fx:id="paidTypeColumn" editable="false" prefWidth="93.0" resizable="false" text="Paid Type" />
+                     </columns>
+                  </TableView>
+                  <HBox layoutX="382.0" layoutY="410.0" prefHeight="44.0" prefWidth="263.0" spacing="10.0">
+                     <children>
+                        <JFXButton fx:id="viewDetailBtn" onAction="#tableToViewActivity" prefHeight="34.0" prefWidth="130.0" style="-fx-background-color: #447477; -fx-background-radius: 6;" text="View Details" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIconView fill="WHITE" glyphName="EYE" size="20" />
+                           </graphic></JFXButton>
+                        <JFXButton fx:id="updateBtn" onAction="#viewToUpdatePane" prefHeight="38.0" prefWidth="111.0" style="-fx-background-color: #447477; -fx-background-radius: 6;" text="Update" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="20" />
+                           </graphic></JFXButton>
+                     </children>
+                     <padding>
+                        <Insets left="5.0" top="10.0" />
+                     </padding>
+                  </HBox>
+                  <Label fx:id="errorLabel" layoutX="33.0" layoutY="421.0" textFill="#447477" />
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="houseupdatePane" layoutY="-4.0" prefHeight="537.0" prefWidth="734.0" visible="false" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-4.0">
+         <children>
+            <AnchorPane layoutX="25.0" layoutY="32.0" prefHeight="475.0" prefWidth="352.0" style="-fx-background-color: rgb(255.0, 255.0, 255.0); -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.30), 6.0, 0.3, 0,1);" styleClass="card-white">
+               <children>
+                  <Pane layoutX="14.0" layoutY="-20.0" prefHeight="51.0" prefWidth="186.0" style="-fx-background-radius: 5; -fx-background-color: #f39c12;">
+                     <children>
+                        <Label layoutX="29.0" layoutY="8.0" prefHeight="35.0" prefWidth="129.0" text="House Details" textFill="WHITE">
+                           <font>
+                              <Font name="Roboto Medium" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <GridPane layoutX="16.0" layoutY="59.0" prefHeight="394.0" prefWidth="272.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="58.0" minHeight="10.0" prefHeight="44.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="58.0" minHeight="10.0" prefHeight="54.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="95.0" minHeight="10.0" prefHeight="53.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="80.0" minHeight="10.0" prefHeight="56.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="112.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="98.0" minHeight="10.0" prefHeight="48.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="104.0" minHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="104.0" minHeight="10.0" prefHeight="53.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <Label fx:id="searchHouse" text="Searching Paying Guests" textFill="#f39c12">
+                           <graphic>
+                              <FontAwesomeIconView fill="#f39c12" glyphName="SEARCH" size="25" />
+                           </graphic>
+                        </Label>
+                        <JFXTextField fx:id="houseNumTxt" focusColor="#f39c12" labelFloat="true" layoutX="10.0" layoutY="82.0" promptText="House Number" GridPane.rowIndex="1" />
+                        <JFXTextField fx:id="houseLocationTxt" focusColor="#f39c12" labelFloat="true" promptText="Location of House" GridPane.rowIndex="2" />
+                        <JFXComboBox fx:id="houseForCombo" focusColor="#f39c12" labelFloat="true" prefHeight="29.0" prefWidth="168.0" promptText="House For" GridPane.rowIndex="3" />
+                        <JFXDatePicker fx:id="endDateHouse" defaultColor="#f39c12" editable="false" prefHeight="24.0" prefWidth="217.0" promptText="Final Date" GridPane.rowIndex="4" />
+                        <JFXTextField fx:id="priceHouseTxt" focusColor="#f39c12" labelFloat="true" promptText="House Price" GridPane.rowIndex="5" />
+                        <JFXComboBox fx:id="paidTypeHouse" focusColor="#f39c12" labelFloat="true" prefHeight="26.0" prefWidth="184.0" promptText="Payment Method" GridPane.rowIndex="6" />
+                     </children>
+                  </GridPane>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="386.0" layoutY="45.0" prefHeight="394.0" prefWidth="335.0" style="-fx-background-color: #fff; -fx-background-radius: 5; -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,1.5);">
+               <children>
+                  <GridPane layoutX="14.0" layoutY="29.0" prefHeight="268.0" prefWidth="285.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="243.0" minHeight="10.0" prefHeight="129.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="86.0" minHeight="10.0" prefHeight="86.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="68.0" minHeight="10.0" prefHeight="52.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <JFXTextArea fx:id="descriptionHouseTxt" focusColor="#f39c12" labelFloat="true" prefHeight="139.0" prefWidth="285.0" promptText="House Description" />
+                        <JFXComboBox fx:id="statusofHouseCombo" focusColor="#f39c12" labelFloat="true" prefHeight="35.0" prefWidth="170.0" promptText="Status" GridPane.rowIndex="1" />
+                        <JFXComboBox fx:id="visbilityHouse" prefHeight="26.0" prefWidth="183.0" promptText="House Visibility" GridPane.rowIndex="2" />
+                     </children>
+                  </GridPane>
+                  <HBox layoutX="49.0" layoutY="342.0" prefHeight="38.0" prefWidth="272.0" spacing="6.0">
+                     <children>
+                        <JFXButton fx:id="backHouseBtn" buttonType="RAISED" onAction="#houseBackAction" prefHeight="35.0" prefWidth="77.0" ripplerFill="#f52020" style="-fx-background-color: #F39C12;" text="Back" textFill="WHITE">
+                           <font>
+                              <Font name="Roboto Medium" size="15.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton fx:id="clearHouseFieldBtn" buttonType="RAISED" onAction="#cleaHouseField" prefHeight="35.0" prefWidth="81.0" ripplerFill="#f52020" style="-fx-background-color: #F39C12;" text="Clear" textFill="WHITE">
+                           <font>
+                              <Font name="Roboto Medium" size="15.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton fx:id="updateHouseDetailsBtn" buttonType="RAISED" onAction="#uodateHouseDetails" prefHeight="35.0" prefWidth="101.0" ripplerFill="#3f25d7" style="-fx-background-color: #f39c12;" text="Update" textFill="WHITE">
+                           <font>
+                              <Font name="Roboto Medium" size="15.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </HBox>
+                  <Label fx:id="errorHouseInfo" layoutX="12.0" layoutY="292.0" textFill="#f39c12">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <JFXSpinner fx:id="houseSpinner" layoutX="525.0" layoutY="478.0" radius="25.0" visible="false" />
+            <Pane layoutX="406.0" layoutY="33.0" prefHeight="24.0" prefWidth="58.0" style="-fx-background-radius: 5; -fx-background-color: #f39c12;">
+               <children>
+                  <Label layoutX="8.0" prefHeight="24.0" prefWidth="44.0" text="More" textFill="WHITE">
+                     <font>
+                        <Font name="Roboto Medium" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="viewDetailPane" layoutX="2.0" layoutY="1.0" prefHeight="537.0" prefWidth="716.0" visible="false">
+         <children>
+            <JFXButton fx:id="viewDetailBack" layoutX="1.0" layoutY="8.0" onAction="#viewToTablePane" text="Back">
+               <font>
+                  <Font size="11.0" />
+               </font></JFXButton>
+            <TabPane layoutX="44.0" prefHeight="526.0" prefWidth="688.0" tabClosingPolicy="UNAVAILABLE">
+               <tabs>
+                  <Tab text="Details">
+                     <content>
+                        <AnchorPane fx:id="detailsPane" prefHeight="419.0" prefWidth="558.0" style="-fx-background-color: #447477;">
+                           <children>
+                              <Label layoutX="225.0" layoutY="16.0" text="House Details" textFill="WHITE">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font></Label>
+                              <GridPane layoutX="57.0" layoutY="63.0" prefHeight="366.0" prefWidth="265.0">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="178.0" minWidth="10.0" prefWidth="109.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="156.0" minWidth="10.0" prefWidth="141.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="56.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="31.0" minHeight="8.0" prefHeight="31.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="31.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label text="Posted As:" textFill="WHITE" />
+                                    <Label text="Searching" textFill="WHITE" GridPane.rowIndex="1" />
+                                    <Label text="At location" textFill="WHITE" GridPane.rowIndex="2" />
+                                    <Label text="House Number" textFill="WHITE" GridPane.rowIndex="3" />
+                                    <Label text="House For" textFill="WHITE" GridPane.rowIndex="4" />
+                                    <Label fx:id="houseforLbl" text="Label" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <Label text="Posted Date" textFill="WHITE" GridPane.rowIndex="5" />
+                                    <Label text="Post End date" textFill="WHITE" GridPane.rowIndex="6" />
+                                    <Label text="Price" textFill="WHITE" GridPane.rowIndex="7" />
+                                    <Label text="Paid Type" textFill="WHITE" GridPane.rowIndex="8" />
+                                    <Label text="Status" textFill="WHITE" GridPane.rowIndex="9" />
+                                    <Label fx:id="posetdAsLblDtl" prefHeight="17.0" prefWidth="156.0" text="Label1" textFill="WHITE" GridPane.columnIndex="1" />
+                                    <Label fx:id="searchingLblDtl" prefHeight="17.0" prefWidth="160.0" text="Label2" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <Label fx:id="locationLblDtl" prefHeight="17.0" prefWidth="155.0" text="aksldfhjl;ashdl;khsakl;dfhakl;sdhasd;klhfsaasdfasdlflklasdkjfbklasbdkjfb" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <Label fx:id="houseNoLblDtl" text="Label4" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <Label fx:id="postedDatLblDTl" text="Label5" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                    <Label fx:id="postEndDateLblDtl" text="Label6" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                    <Label fx:id="priceLblDtl" text="Label7" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                    <Label fx:id="paidTypeLblDtl" text="Label8" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                                    <Label fx:id="statusLblDtl" text="Label9" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                                    <Label text="Visibility" textFill="WHITE" GridPane.rowIndex="10" />
+                                    <Label fx:id="visibilityLabel" text="Label" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                                 </children>
+                              </GridPane>
+                              <Label layoutX="381.0" layoutY="63.0" prefHeight="26.0" prefWidth="121.0" text="House Description" textFill="WHITE" />
+                              <Text fx:id="descriptionLblDtl" fill="WHITE" layoutX="381.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="kalxkn" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="View Interested User">
+                     <content>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <AnchorPane fx:id="noIntrestedUserPane" prefHeight="493.0" prefWidth="707.0" style="-fx-background-color: #447477;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Label layoutX="95.0" layoutY="207.0" text="No User have shown intrested on this post" textFill="WHITE">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane fx:id="houseInterestedUserPane" prefHeight="493.0" prefWidth="707.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <TableView fx:id="houseInterestedUserTable" layoutX="49.0" layoutY="50.0" prefHeight="428.0" prefWidth="424.0">
+                                       <columns>
+                                          <TableColumn fx:id="interestedUsernameColumn" prefWidth="182.0" resizable="false" text="List of Interested User" />
+                                          <TableColumn fx:id="dateInterestedColumn" prefWidth="239.0" text="Date Showing Interested" />
+                                          <TableColumn fx:id="interestedIdColumn" prefWidth="37.0" text="id" visible="false" />
+                                       </columns>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="Select user">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <AnchorPane fx:id="noselectUserPane" prefHeight="493.0" prefWidth="707.0" style="-fx-background-color: #447477;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Label fx:id="noselectUserLbl" layoutX="93.0" layoutY="215.0" text="No User have shown intrested on this post" textFill="WHITE">
+                                       <font>
+                                          <Font size="22.0" />
+                                       </font></Label>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane fx:id="selectUserPane" prefHeight="493.0" prefWidth="707.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <AnchorPane fx:id="userInteretedProfilePane" layoutX="374.0" layoutY="35.0" prefHeight="436.0" prefWidth="264.0" style="-fx-background-color: #447477; -fx-background-radius: 6;" visible="false">
+                                       <children>
+                                          <Circle fx:id="profileCircle" fill="DODGERBLUE" layoutX="57.0" layoutY="56.0" radius="41.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                                          <Label fx:id="profileUsername" layoutX="33.0" layoutY="120.0" prefHeight="30.0" prefWidth="205.0" text="username" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="profilename" layoutX="32.0" layoutY="151.0" text="First Name" textFill="WHITE" />
+                                          <Label fx:id="profileDOB" layoutX="93.0" layoutY="177.0" text="DOB" textFill="WHITE" />
+                                          <Label fx:id="profileAddress" layoutX="96.0" layoutY="200.0" text="Address" textFill="WHITE" />
+                                          <Label layoutX="54.0" layoutY="225.0" text="Post for room" textFill="WHITE" />
+                                          <Label layoutX="55.0" layoutY="251.0" text="Post For House" textFill="WHITE" />
+                                          <Label layoutX="56.0" layoutY="277.0" text="Post For Apartment" textFill="WHITE" />
+                                          <Label fx:id="roomLabel" layoutX="38.0" layoutY="277.0" text="2" textFill="WHITE" />
+                                          <Label fx:id="houseLabel" layoutX="38.0" layoutY="250.0" text="1" textFill="WHITE" />
+                                          <Label fx:id="apartmentLabel" layoutX="37.0" layoutY="225.0" text="3" textFill="WHITE" />
+                                          <Label layoutX="35.0" layoutY="200.0" text="Address: " textFill="WHITE" />
+                                          <Label layoutX="33.0" layoutY="177.0" text="DOB: " textFill="WHITE" />
+                                          <Label layoutX="32.0" layoutY="331.0" text="Profile Description" textFill="WHITE" underline="true" />
+                                          <Text fx:id="profileDescription" fill="WHITE" layoutX="34.0" layoutY="361.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                                          <Label fx:id="activeLabel" layoutX="31.0" layoutY="108.0" text="Inactive" textFill="#eb0d0d" />
+                                          <MaterialDesignIconView fx:id="activeGlyph" fill="#64dd62" glyphName="BRIGHTNESS_1" layoutX="91.0" layoutY="121.0" />
+                                          <MaterialDesignIconView fx:id="inactiveGlyph" fill="#eb0d0d" glyphName="BRIGHTNESS_1" layoutX="91.0" layoutY="121.0" />
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane fx:id="profileBlockPane" layoutX="375.0" layoutY="35.0" prefHeight="436.0" prefWidth="264.0" style="-fx-background-color: #447477; -fx-background-radius: 6;" visible="false">
+                                       <children>
+                                          <Label fx:id="profileBlocknfoLabel" layoutX="27.0" layoutY="71.0" prefHeight="16.0" prefWidth="212.0" text="Label" textFill="WHITE">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font></Label>
+                                       </children>
+                                    </AnchorPane>
+                                    <ComboBox fx:id="listOfUserInterestedCombo" layoutX="28.0" layoutY="121.0" prefHeight="26.0" prefWidth="198.0" promptText="interested user list" />
+                                    <Label layoutX="32.0" layoutY="165.0" text="Price For Reserved" textFill="#447477" />
+                                    <Label fx:id="selectUserError" layoutX="44.0" layoutY="357.0" textFill="#447477" />
+                                    <JFXButton fx:id="viewInteresteduser" layoutX="35.0" layoutY="289.0" onAction="#showInnterestedUserProfile" prefHeight="38.0" prefWidth="95.0" style="-fx-background-color: #447477; -fx-background-radius: 6;" text="View Profile" textFill="WHITE" />
+                                    <JFXButton fx:id="BookUserBtn" layoutX="154.0" layoutY="287.0" onAction="#bookesUserForPostedHouse" prefHeight="38.0" prefWidth="88.0" style="-fx-background-color: #447477; -fx-background-radius: 6;" text="Book" textFill="WHITE" visible="false">
+                                       <graphic>
+                                          <FontAwesomeIconView fill="WHITE" glyphName="UNLOCK_ALT" size="24" />
+                                       </graphic></JFXButton>
+                                    <Text fill="#447477" layoutX="27.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select User From Interested to book your posted Information" wrappingWidth="216.99999457597733">
+                                       <font>
+                                          <Font size="19.0" />
+                                       </font></Text>
+                                    <JFXSpinner fx:id="spinnerSelectingUser" layoutX="245.0" layoutY="118.0" radius="15.0" visible="false" />
+                                    <GridPane layoutX="32.0" layoutY="184.0" prefHeight="87.0" prefWidth="248.0">
+                                      <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="145.0" minWidth="10.0" prefWidth="113.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="121.0" minWidth="10.0" prefWidth="121.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <Label text="Actual price" textFill="#447477" />
+                                          <Label text="+15% Commision" textFill="#447477" GridPane.rowIndex="1" />
+                                          <Label text="Total Price" textFill="#447477" GridPane.rowIndex="2" />
+                                          <Label fx:id="actualPriceLbl" text="Calculation" textFill="#447477" GridPane.columnIndex="1" />
+                                          <Label fx:id="totalPriceLbl" text="Label" textFill="#447477" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                          <Label fx:id="commisionPriceLbl" text="Label" textFill="#447477" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="Report options">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                     </content>
+                  </Tab>
+               </tabs>
+            </TabPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

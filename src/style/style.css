@@ -1,0 +1,10 @@
+#contentPane{
+    -fx-background-image: url("../images/new-bg-projects.png");
+    
+    
+}
+
+
+#dbPane{
+        -fx-background-color: linear-gradient(#75c4e4,white);
+}

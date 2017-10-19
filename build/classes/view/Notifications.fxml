@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="68.0" prefWidth="610.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NewNotificationsController">
+   <children>
+      <AnchorPane prefHeight="68.0" prefWidth="530.0" style="-fx-background-color: #447477;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Circle fx:id="circle" fill="DODGERBLUE" layoutX="35.0" layoutY="33.0" radius="21.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+            <Text fx:id="notifcationsDescription" fill="#fffafa" layoutX="162.0" layoutY="36.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Notifications Description" wrappingWidth="434.13671875" />
+            <Text fx:id="usernameText" fill="#fffafa" layoutX="63.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="username">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Text>
+            <Label fx:id="newLabel" layoutX="68.0" layoutY="44.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

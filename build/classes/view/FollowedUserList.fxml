@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="553.0" prefWidth="647.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FollowedUserController">
+   <children>
+      <AnchorPane fx:id="noFollowerPane" layoutX="20.0" layoutY="20.0" prefHeight="601.0" prefWidth="827.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Text layoutX="238.0" layoutY="229.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No Followers Find" wrappingWidth="197.99999862909317">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Text>
+            <MaterialDesignIconView glyphName="EMOTICON_NEUTRAL" layoutX="260.0" layoutY="195.0" size="120" />
+            <JFXButton fx:id="refreshNoFollowerBtn" layoutX="256.0" layoutY="251.0" onAction="#refreshNoFollwedPane" style="-fx-background-color: #447477; -fx-background-radius: 5;" text="Refresh" textFill="WHITE">
+               <font>
+                  <Font size="25.0" />
+               </font>
+               <graphic>
+                  <MaterialDesignIconView fill="WHITE" glyphName="AUTORENEW" size="33" />
+               </graphic></JFXButton>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="tablePane" layoutY="79.0" prefHeight="553.0" prefWidth="647.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <TableView fx:id="table" layoutX="51.0" layoutY="56.0" onMousePressed="#getSelectedUsername" prefHeight="434.0" prefWidth="555.0">
+              <columns>
+                <TableColumn fx:id="usernameColumn" prefWidth="156.0" text="Username" />
+                <TableColumn fx:id="followingDateCoulmn" minWidth="8.0" prefWidth="190.0" text="Following Started Date" />
+                  <TableColumn fx:id="permissionColumn" prefWidth="204.0" text="Profile View Permission" />
+              </columns>
+            </TableView>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="profileDetailsPane" prefHeight="553.0" prefWidth="647.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <JFXButton fx:id="backBtn" layoutX="350.0" layoutY="205.0" onAction="#profileToTablePane" prefHeight="32.0" prefWidth="98.0" style="-fx-background-color: #447477; -fx-background-radius: 5;" text="RETURN" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font></JFXButton>
+            <JFXComboBox fx:id="permissionCombo" focusColor="#6edeeb" labelFloat="true" layoutX="345.0" layoutY="112.0" prefHeight="26.0" prefWidth="127.0" promptText="Permission" />
+            <JFXButton fx:id="changePermissionBtn" layoutX="345.0" layoutY="159.0" onAction="#changePermissionForUser" prefHeight="41.0" prefWidth="189.0" style="-fx-background-color: #447477; -fx-background-radius: 5;" text="Change Permission" textFill="WHITE">
+               <font>
+                  <Font size="17.0" />
+               </font></JFXButton>
+            <AnchorPane fx:id="userFollowedPane" layoutX="52.0" layoutY="36.0" prefHeight="436.0" prefWidth="282.0" style="-fx-background-color: #447477; -fx-background-radius: 6;">
+               <children>
+                  <Circle fx:id="profileCircle" fill="DODGERBLUE" layoutX="76.0" layoutY="64.0" radius="44.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                  <Label fx:id="profileUsername" layoutX="34.0" layoutY="131.0" prefHeight="30.0" prefWidth="212.0" text="username" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="profilename" layoutX="36.0" layoutY="170.0" text="First Name" textFill="WHITE" />
+                  <Label fx:id="profileDOB" layoutX="93.0" layoutY="191.0" text="DOB" textFill="WHITE" />
+                  <Label fx:id="profileAddress" layoutX="96.0" layoutY="214.0" text="Address" textFill="WHITE" />
+                  <Label layoutX="54.0" layoutY="238.0" text="Post for room" textFill="WHITE" />
+                  <Label layoutX="52.0" layoutY="260.0" text="Post For House" textFill="WHITE" />
+                  <Label layoutX="53.0" layoutY="286.0" text="Post For Apartment" textFill="WHITE" />
+                  <Label fx:id="roomLabel" layoutX="38.0" layoutY="286.0" text="2" textFill="WHITE" />
+                  <Label fx:id="houseLabel" layoutX="38.0" layoutY="259.0" text="1" textFill="WHITE" />
+                  <Label fx:id="apartmentLabel" layoutX="37.0" layoutY="237.0" text="3" textFill="WHITE" />
+                  <Label layoutX="35.0" layoutY="214.0" text="Address: " textFill="WHITE" />
+                  <Label layoutX="37.0" layoutY="191.0" text="DOB: " textFill="WHITE" />
+                  <Label layoutX="32.0" layoutY="331.0" text="Profile Description" textFill="WHITE" underline="true" />
+                  <Text fx:id="profileDescription" fill="WHITE" layoutX="34.0" layoutY="363.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="168.7294921875" />
+                  <Label fx:id="activeLabel" layoutX="37.0" layoutY="115.0" text="Inactive" textFill="#c4026e" />
+                  <MaterialDesignIconView fx:id="activeGlyph" fill="#64dd62" glyphName="BRIGHTNESS_1" layoutX="98.0" layoutY="128.0" />
+                  <MaterialDesignIconView fx:id="inactiveGlyph" fill="#eb0d0d" glyphName="BRIGHTNESS_1" layoutX="98.0" layoutY="128.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="profileBlockPane" layoutX="52.0" layoutY="34.0" prefHeight="436.0" prefWidth="282.0" style="-fx-background-color: #447477; -fx-background-radius: 6;" visible="false">
+               <children>
+                  <Label fx:id="profileBlocknfoLabel" layoutX="26.0" layoutY="71.0" prefHeight="16.0" prefWidth="212.0" text="Label" textFill="WHITE" />
+                  <JFXButton fx:id="requestBtn" layoutX="90.0" layoutY="143.0" onAction="#requestToChangePermission" style="-fx-border-color: WHITE; -fx-border-radius: 6;" text="Request " textFill="WHITE">
+                     <font>
+                        <Font size="16.0" />
+                     </font></JFXButton>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

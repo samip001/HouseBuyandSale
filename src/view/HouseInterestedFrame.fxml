@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="574.0" prefWidth="722.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HouseInterestedFrameController">
+   <children>
+      <AnchorPane prefHeight="507.0" prefWidth="675.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane layoutY="3.0" prefHeight="90.0" prefWidth="722.0" style="-fx-background-color: #447477;">
+               <children>
+                  <Label layoutX="45.0" layoutY="3.0" text="Select House type To view All the list of intrested List" textFill="WHITE">
+                     <font>
+                        <Font size="20.0" />
+                     </font></Label>
+                  <JFXComboBox fx:id="houseTypeCombo" focusColor="WHITE" labelFloat="true" layoutX="49.0" layoutY="45.0" prefHeight="26.0" prefWidth="155.0" promptText="Choose House Type" unFocusColor="#111111" />
+                  <JFXButton fx:id="loadBtn" layoutX="246.0" layoutY="45.0" onAction="#listInterestedHouseActivity" prefHeight="28.0" prefWidth="76.0" style="-fx-border-color: white; -fx-border-radius: 5;" text="VIEW" textFill="#f8f0f0" />
+                  <Label fx:id="errorInfo" layoutX="326.0" layoutY="50.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="-2.0" layoutY="90.0" prefHeight="484.0" prefWidth="722.0">
+               <children>
+                  <AnchorPane fx:id="noresultPane" prefHeight="513.0" prefWidth="722.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Text layoutX="256.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Result Not Found" wrappingWidth="193.99999862909317">
+                           <font>
+                              <Font size="21.0" />
+                           </font>
+                        </Text>
+                        <MaterialDesignIconView glyphName="EMOTICON_NEUTRAL" layoutX="281.0" layoutY="164.0" size="120" />
+                        <Text fx:id="houeTypeLabel" layoutX="316.0" layoutY="236.0" strokeType="OUTSIDE" strokeWidth="0.0" text="kjgkj">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="resultPane" layoutX="8.0" layoutY="-3.0" prefHeight="428.0" prefWidth="722.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-3.0">
+                     <children>
+                        <Label fx:id="resultFoundLabel" layoutX="46.0" layoutY="14.0" />
+                        <JFXListView fx:id="listInterestedHouse" layoutX="28.0" layoutY="37.0" prefHeight="436.0" prefWidth="675.0" style="-fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.3), 7.0, 0.0, 0.0,0.0); -fx-border-color: white; -fx-border-radius: 10;" />
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

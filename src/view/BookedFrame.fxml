@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="549.0" prefWidth="756.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BookedFrameController">
+   <children>
+      <AnchorPane fx:id="noresultPane" layoutX="20.0" layoutY="20.0" prefHeight="601.0" prefWidth="827.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Text layoutX="185.0" layoutY="228.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You have not Booked any House" wrappingWidth="399.99999862909317">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Text>
+            <MaterialDesignIconView glyphName="EMOTICON_NEUTRAL" layoutX="281.0" layoutY="180.0" size="120" />
+            <JFXButton fx:id="noresukRefreshBtn" layoutX="285.0" layoutY="255.0" onAction="#refreshFromNoresutPane" style="-fx-background-color: #447477; -fx-background-radius: 6;" text="Refresh" textFill="WHITE">
+               <graphic>
+                  <MaterialDesignIconView fill="WHITE" glyphName="AUTORENEW" size="30" />
+               </graphic>
+               <font>
+                  <Font size="20.0" />
+               </font></JFXButton>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="resultPane" layoutX="28.0" layoutY="16.0" prefHeight="549.0" prefWidth="756.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label fx:id="infoLabel" layoutX="61.0" layoutY="32.0" text="UInfor Lbaek" />
+            <JFXListView fx:id="bookedList" layoutX="44.0" layoutY="59.0" prefHeight="467.0" prefWidth="675.0" style="-fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.3), 7.0, 0.0, 0.0,0.0); -fx-border-color: white; -fx-border-radius: 10;" />
+            <JFXButton fx:id="refreshBtn" layoutX="633.0" layoutY="27.0" onAction="#refreshListAction" ripplerFill="#030303" style="-fx-background-color: #447477; -fx-background-radius: 5;" text="Refresh" textFill="WHITE" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

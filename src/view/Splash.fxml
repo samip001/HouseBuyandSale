@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXSpinner?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.effect.GaussianBlur?>
+<?import javafx.scene.effect.SepiaTone?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="423.0" prefWidth="619.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SplashController">
+   <children>
+      <ImageView fitHeight="439.0" fitWidth="650.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/20140629075007761.jpg" />
+         </image>
+         <effect>
+            <GaussianBlur radius="21.0" />
+         </effect>
+      </ImageView>
+      <Label fx:id="loadLbl" layoutX="273.0" layoutY="369.0" text="Loading" textFill="#6f6767">
+         <font>
+            <Font size="15.0" />
+         </font></Label>
+      <Label layoutX="21.0" layoutY="49.0" prefHeight="65.0" prefWidth="573.0" text="Welcome to Housing Management System" textFill="#655e5e">
+         <font>
+            <Font size="26.0" />
+         </font>
+         <effect>
+            <SepiaTone level="0.12" />
+         </effect>
+      </Label>
+      <JFXSpinner layoutX="259.0" layoutY="264.0" radius="35.0" />
+      <Separator layoutX="22.0" layoutY="102.0" prefWidth="570.0" />
+   </children>
+</AnchorPane>

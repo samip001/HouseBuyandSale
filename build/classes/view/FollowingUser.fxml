@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="128.0" prefWidth="622.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FollowingUserController">
+   <children>
+      <AnchorPane fx:id="showPane" layoutX="25.0" layoutY="11.0" prefHeight="108.0" prefWidth="582.0" style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.1), 6.0, 0.7, 0.0,1.5);">
+         <children>
+            <Circle fx:id="imageCircle" fill="DODGERBLUE" layoutX="60.0" layoutY="43.0" radius="32.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+            <Label fx:id="usernameLabel" layoutX="106.0" layoutY="10.0" prefHeight="30.0" prefWidth="244.0" text="username" textFill="#447477">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="106.0" layoutY="41.0" text="Following Date" textFill="#447477">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="followingDateLbl" layoutX="108.0" layoutY="58.0" text="Gender" textFill="#447477" />
+            <JFXButton fx:id="unfollowBtn" layoutX="453.0" layoutY="18.0" onAction="#unfollowActivity" prefHeight="37.0" prefWidth="110.0" style="-fx-background-color: red;" text="Unfollow" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="unfollowPane" layoutX="25.0" layoutY="9.0" prefHeight="110.0" prefWidth="582.0" style="-fx-background-color: white;" visible="false">
+         <children>
+            <Label fx:id="infoLabel" layoutX="159.0" layoutY="16.0" prefHeight="94.0" prefWidth="321.0" text="You have Unfollowed +&quot;Username&quot;" textFill="#447477" />
+         </children>
+         <effect>
+            <DropShadow height="24.03" radius="9.24" width="14.93" />
+         </effect>
+      </AnchorPane>
+   </children>
+</AnchorPane>

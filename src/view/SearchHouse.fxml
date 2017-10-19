@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXSpinner?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="538.0" prefWidth="746.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SearchHouseController">
+   <children>
+      <AnchorPane layoutX="3.0" layoutY="5.0" prefHeight="90.0" prefWidth="736.0" style="-fx-background-color: #447477;">
+         <children>
+            <ComboBox fx:id="houseType" layoutX="40.0" layoutY="35.0" onAction="#houseTypeChange" prefHeight="26.0" prefWidth="126.0" promptText="House Type" style="-fx-background-color: #447477;" />
+            <TextField fx:id="locationTxt" layoutX="172.0" layoutY="35.0" prefHeight="26.0" prefWidth="246.0" promptText="Location Name" />
+            <JFXButton fx:id="searchBtn" layoutX="446.0" layoutY="31.0" onAction="#searchHouseActivity" text="Search" textFill="#e8dcdc">
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="20" />
+               </graphic>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </JFXButton>
+            <JFXSpinner fx:id="spinner" layoutX="581.0" layoutY="26.0" radius="20.0" visible="false" />
+            <Label fx:id="errorInfo" layoutX="172.0" layoutY="68.0" />
+         </children>
+         <effect>
+            <DropShadow />
+         </effect>
+      </AnchorPane>
+      <AnchorPane layoutX="-2.0" layoutY="92.0" prefHeight="449.0" prefWidth="746.0">
+         <children>
+            <AnchorPane fx:id="noresultPane" prefHeight="449.0" prefWidth="722.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Text layoutX="303.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Result Not Found" wrappingWidth="193.99999862909317">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Text>
+                  <MaterialDesignIconView glyphName="EMOTICON_NEUTRAL" layoutX="328.0" layoutY="139.0" size="120" />
+                  <Text fx:id="seacrhLocationLabel" layoutX="373.0" layoutY="211.0" strokeType="OUTSIDE" strokeWidth="0.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="resultPane" layoutX="8.0" prefHeight="449.0" prefWidth="722.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Label fx:id="resultFoundLabel" layoutX="46.0" layoutY="14.0" />
+                  <JFXListView fx:id="listHouse" layoutX="28.0" layoutY="38.0" prefHeight="393.0" prefWidth="702.0" style="-fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.3), 7.0, 0.0, 0.0,0.0); -fx-border-color: white; -fx-border-radius: 10;" />
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
