@@ -76,10 +76,6 @@ public class LoginController implements Initializable {
     private Text errorInfo;
     
     private DatabaseConnection db;
-//    private InputStream inputStream ;
-//    private Properties properties;
-    
-//    private String username, passwrd;
     
 
     /**
@@ -141,8 +137,8 @@ public class LoginController implements Initializable {
                 errorInfo("Invalid Password ! Try Next ");
             } else {
                 UserBLL ubll =new UserBLL();
-                //user check exits or not in system
                 
+                //user check exits or not in system
                 //And user exists
                 if (ubll.isValidUserandPassword(usernameTxt.getText().trim(), passwordTxt.getText().trim())) {
                     
