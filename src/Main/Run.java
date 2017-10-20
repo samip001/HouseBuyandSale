@@ -16,30 +16,33 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 import model.UserBLL;
+import org.controlsfx.control.Notifications;
 
 /**
  *
  * @author samip
  */
-public class Run extends Application{
-    
-    private InputStream inputStream ;
+public class Run extends Application {
+
+    private InputStream inputStream;
     private Properties properties;
     private String username, passwrd;
-    
+
     public static void main(String[] args) {
         Application.launch(args);
     }
 
     public Run() {
-        this.username=null;
+        this.username = null;
         this.passwrd = null;
     }
 
@@ -48,7 +51,7 @@ public class Run extends Application{
         Scene scene;
         properties = new Properties();
         try {
-            inputStream = new FileInputStream(Routing.HELPER+"user.properties");
+            inputStream = new FileInputStream(Routing.HELPER + "user.properties");
             properties.load(inputStream);
             username = properties.getProperty("user");
             passwrd = properties.getProperty("password");
@@ -71,23 +74,31 @@ public class Run extends Application{
             Image image = new Image(Routing.IMAGES + Routing.ICON);
             primaryStage.getIcons().add(image);
             primaryStage.show();
-        } 
-        else {
+        } else {
             DatabaseConnection db = DatabaseConnection.getInstanceofDB();
             if (db.connectDB() != null) {
                 UserBLL ubll = new UserBLL();
-                ubll.isValidUserandPassword(username.trim(), passwrd.trim());
-                //user session start
-//                ubll.userSessionStart(Routing.USERNAME);
-                
-                Parent root = FXMLLoader.load(Run.this.getClass().getResource(Routing.DASHBOARDNEW));
-                scene = new Scene(root);
-                primaryStage.setScene(scene);
-                primaryStage.setTitle("HRBS - "+Routing.USERNAME);
-                Image image = new Image(Routing.IMAGES + Routing.ICON);
-                primaryStage.setResizable(false);
-                primaryStage.getIcons().add(image);
-                primaryStage.show();
+                if (ubll.isValidUserandPassword(username.trim(), passwrd.trim())) {
+                    Parent root = FXMLLoader.load(Run.this.getClass().getResource(Routing.DASHBOARDNEW));
+                    scene = new Scene(root);
+                    primaryStage.setScene(scene);
+                    primaryStage.setTitle("HRBS - " + Routing.USERNAME);
+                    Image image = new Image(Routing.IMAGES + Routing.ICON);
+                    primaryStage.setResizable(false);
+                    primaryStage.getIcons().add(image);
+                    primaryStage.show();
+                    
+                     //notified to user
+                    Notifications nf = Notifications.create()
+                            .title("Login")
+                            .text(Routing.USERNAME+" found and logged in sucessfully")
+                            .position(Pos.BOTTOM_RIGHT)
+                            .hideAfter(Duration.seconds(4))
+                            .graphic(null);
+                    nf.show();
+                    
+                }
+
             } else {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Connection Failed");
@@ -99,5 +110,5 @@ public class Run extends Application{
                 alert.show();
             }
         }
-     }
+    }
 }
