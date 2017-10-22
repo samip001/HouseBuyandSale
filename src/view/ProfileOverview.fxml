@@ -236,6 +236,7 @@
                <font>
                   <Font size="15.0" />
                </font></JFXButton>
+            <JFXSpinner fx:id="spinner" layoutX="196.0" layoutY="177.0" radius="20.0" visible="false" />
          </children>
       </AnchorPane>
    </children>

@@ -389,7 +389,6 @@ public class RoomManageController implements Initializable {
     
     
     private void setDataInOtherPane(){
-//        Query query = new Query();
         statusUpdateProfile.getItems().clear();
         
         DatabaseConnection db = DatabaseConnection.getInstanceofDB();
@@ -453,7 +452,6 @@ public class RoomManageController implements Initializable {
                         noselectUserPane.setVisible(true);
                         selectUserPane.setVisible(false);
                         noselectUserLbl.setText("This Posted information has been booked");
-                        
                         break;
                         
                      default:

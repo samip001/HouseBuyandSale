@@ -56,6 +56,8 @@ import javafx.stage.Stage;
 import data.User;
 import data.UserDescription;
 import java.io.FileWriter;
+import javafx.animation.PauseTransition;
+import javafx.util.Duration;
 import model.UserBLL;
 import model.UserDescriptionBLL;
 
@@ -151,14 +153,16 @@ public class ProfileOverviewController implements Initializable {
     @FXML
     private AnchorPane profiledescriptionPane;
     @FXML
+    private JFXButton updateBtn;
+    @FXML
+    private JFXSpinner spinner;
+    @FXML
     private JFXButton cancelBtn;
-
+    
     private String actionType;
     private String imageName, dbImageName;
     private File file;
-    @FXML
-    private JFXButton updateBtn;
-
+    
     /**
      * Initializes the controller class.
      */
@@ -242,10 +246,11 @@ public class ProfileOverviewController implements Initializable {
         try {
             while (rs.next()) {
                 // used when loading at initial
+                ImagePattern im = null;
                 Image image = new Image(Routing.USERIMAGES + rs.getString("profile_name"));
-                ImagePattern im = new ImagePattern(image);
+                im = new ImagePattern(image);
                 imageCircle.setFill(im);
-
+                
                 if (rs.getString("profile_description").equals("")) {
                     noDescriptionPane.setVisible(true);
                     descriptionPane.setVisible(false);
@@ -354,7 +359,8 @@ public class ProfileOverviewController implements Initializable {
 
     @FXML
     private void UpdateProfileAction(ActionEvent event) {
-        UserBLL ubll =new UserBLL();
+        
+        UserBLL ubll = new UserBLL();
         UserDescriptionBLL udll = new UserDescriptionBLL();
         User user = new User(Routing.USERNAME);
         UserDescription ud = new UserDescription();
@@ -362,7 +368,7 @@ public class ProfileOverviewController implements Initializable {
         String password = passwordFiledTxt.getText();
         //query for vhecking password
 
-        if (ubll.isValidUserandPassword(Routing.USERNAME,password)) {
+        if (ubll.isValidUserandPassword(Routing.USERNAME, password)) {
             if (actionType.equals("Profile Details")) {
                 user.setFirstName(validate.makeCapitalLetter(firstNameTxt.getText().trim()));
                 user.setLastName(validate.makeCapitalLetter(lastNameTxt.getText().trim()));
@@ -380,10 +386,10 @@ public class ProfileOverviewController implements Initializable {
                 if (imageName.equals("")) {
                     ud.setProfileName(dbImageName);
                 } else if (!imageName.equals(dbImageName)) {
-                    System.out.println(imageName+"iamge name not equal");
+                    System.out.println(imageName + "iamge name not equal");
                     ud.setProfileName(imageName);
                     Path src = file.toPath();
-                    Path target = Paths.get("src/"+Routing.USERIMAGES+src.getFileName());
+                    Path target = Paths.get("src/" + Routing.USERIMAGES + src.getFileName());
                     try {
                         Files.copy(src, target, StandardCopyOption.REPLACE_EXISTING);
 
@@ -395,20 +401,20 @@ public class ProfileOverviewController implements Initializable {
                 }
                 ud.setProfileDescription(profileDescriptionTxt.getText());
                 ud.setUsername(user);
-                
+
                 //Buisness Logic updates profile image and description
                 udll.updateProfileDescription(ud);
             }
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("LogOut Details");
             alert.setHeaderText(null);
-            alert.setContentText("Logout For Changing Information");
-            
+            alert.setContentText("Sucessfully update profile.\n\nPlease Login For Change Information");
+
             Stage alertstage = (Stage) alert.getDialogPane().getScene().getWindow();
             alertstage.getIcons().add(new Image(Routing.IMAGES + Routing.ICON));
 
             Optional<ButtonType> action = alert.showAndWait();
-            
+
             if (action.get() == ButtonType.OK) {
                 String storeUserandPass = "user=\npassword=";
                 //file user and password must be ket empty
@@ -440,14 +446,14 @@ public class ProfileOverviewController implements Initializable {
             alert.setTitle("Password Error");
             alert.setHeaderText(null);
             alert.setContentText("Password not macth! Try Again");
-            Stage alertstage = (Stage)alert.getDialogPane().getScene().getWindow();
-            alertstage.getIcons().add(new Image(Routing.IMAGES+Routing.ICON));
-        
+            Stage alertstage = (Stage) alert.getDialogPane().getScene().getWindow();
+            alertstage.getIcons().add(new Image(Routing.IMAGES + Routing.ICON));
+
             alert.showAndWait();
-            
+
             animatePane(passwordPane, profileViewPane);
         }
-    }
+   }
 
     private void errorAlert(String error) {
         if (profileSpinner.isVisible()) {
@@ -518,5 +524,4 @@ public class ProfileOverviewController implements Initializable {
         pane1.setVisible(false);
         pane2.setVisible(true);
     }
-
 }

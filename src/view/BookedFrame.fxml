@@ -17,8 +17,8 @@
                   <Font size="21.0" />
                </font>
             </Text>
-            <MaterialDesignIconView glyphName="EMOTICON_NEUTRAL" layoutX="281.0" layoutY="180.0" size="120" />
-            <JFXButton fx:id="noresukRefreshBtn" layoutX="285.0" layoutY="255.0" onAction="#refreshFromNoresutPane" style="-fx-background-color: #447477; -fx-background-radius: 6;" text="Refresh" textFill="WHITE">
+            <MaterialDesignIconView glyphName="EMOTICON_NEUTRAL" layoutX="254.0" layoutY="191.0" size="120" />
+            <JFXButton fx:id="noresukRefreshBtn" layoutX="256.0" layoutY="240.0" onAction="#refreshFromNoresutPane" style="-fx-background-color: #447477; -fx-background-radius: 6;" text="Refresh" textFill="WHITE">
                <graphic>
                   <MaterialDesignIconView fill="WHITE" glyphName="AUTORENEW" size="30" />
                </graphic>

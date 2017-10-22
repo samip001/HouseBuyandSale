@@ -16,7 +16,7 @@
                   <Font size="21.0" />
                </font>
             </Text>
-            <MaterialDesignIconView glyphName="EMOTICON_NEUTRAL" layoutX="296.0" layoutY="179.0" size="120" />
+            <MaterialDesignIconView glyphName="EMOTICON_NEUTRAL" layoutX="259.0" layoutY="179.0" size="120" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="resultPane" layoutX="18.0" layoutY="10.0" prefHeight="536.0" prefWidth="728.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="0.0">

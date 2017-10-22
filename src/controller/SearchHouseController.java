@@ -96,7 +96,11 @@ public class SearchHouseController implements Initializable{
         if(houseType.getSelectionModel().getSelectedItem() == null){
             errorInfo.setText("Select Which House Type u want to search ?");
         }
-        else if(locationTxt.getText() !=null){
+        else if(locationTxt.getText() == null ||
+                locationTxt.getText().equals("")){
+            errorInfo.setText("Invalid Location Name for "+houseType.getSelectionModel().getSelectedItem());
+        }
+        else {
             String id = null;
             int count = 0;
             errorInfo.setText(null);
@@ -125,12 +129,15 @@ public class SearchHouseController implements Initializable{
             try {
                 if (!rs.isBeforeFirst()) {
                     noresultPane.setVisible(true);
+                    resultPane.setVisible(false);
                     seacrhLocationLabel.setText("'" + locationTxt.getText() + "'");
                     
-                    
                 } else {
-                    animatePane(noresultPane, resultPane);
-                    
+                    if (noresultPane.isVisible()) {
+                        noresultPane.setVisible(false);
+                        animatePane(noresultPane, resultPane);
+                     }
+                    resultPane.setVisible(true);
                     while (rs.next()) {
                         count++;
                         FXMLLoader loader = new FXMLLoader(getClass().getResource(Routing.HOUSERESULT));
@@ -176,10 +183,6 @@ public class SearchHouseController implements Initializable{
                 Logger.getLogger(SearchUserController.class.getName()).log(Level.SEVERE, null, ex);
             }
             db.disconnect(conn);
-        }
-        else{
-            errorInfo.setText("Invalid Location Name");
-            locationTxt.requestFocus();
         }
     }
       private void animatePane(AnchorPane pane1, AnchorPane pane2) {

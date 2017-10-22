@@ -20,8 +20,8 @@
                   <Font size="21.0" />
                </font>
             </Text>
-            <MaterialDesignIconView glyphName="EMOTICON_NEUTRAL" layoutX="260.0" layoutY="195.0" size="120" />
-            <JFXButton fx:id="refreshNoFollowerBtn" layoutX="256.0" layoutY="251.0" onAction="#refreshNoFollwedPane" style="-fx-background-color: #447477; -fx-background-radius: 5;" text="Refresh" textFill="WHITE">
+            <MaterialDesignIconView glyphName="EMOTICON_NEUTRAL" layoutX="257.0" layoutY="195.0" size="120" />
+            <JFXButton fx:id="refreshNoFollowerBtn" layoutX="235.0" layoutY="251.0" onAction="#refreshNoFollwedPane" prefHeight="54.0" prefWidth="175.0" style="-fx-background-color: #447477; -fx-background-radius: 5;" text="Refresh" textFill="WHITE">
                <font>
                   <Font size="25.0" />
                </font>
