@@ -37,7 +37,7 @@
                   <MaterialDesignIconView fill="WHITE" glyphName="AUTORENEW" size="30" />
                </graphic></JFXButton>
             <FontAwesomeIconView fill="#447477" glyphName="FROWN_ALT" layoutX="241.0" layoutY="208.0" size="200" />
-            <Label layoutX="134.0" layoutY="252.0" text="No Posted Information Found For Apartment To Manage" textFill="#447477">
+            <Label layoutX="134.0" layoutY="252.0" text="No Posted Information Found For RoomTo Manage" textFill="#447477">
                <font>
                   <Font size="16.0" />
                </font>
