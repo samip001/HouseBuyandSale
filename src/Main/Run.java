@@ -103,7 +103,7 @@ public class Run extends Application {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Connection Failed");
                 alert.setHeaderText(null);
-                alert.setContentText("No Connection Found");
+                alert.setContentText("No Connection Found for user: "+username );
 
                 Stage alertstage = (Stage) alert.getDialogPane().getScene().getWindow();
                 alertstage.getIcons().add(new Image(Routing.IMAGES + Routing.ICON));
