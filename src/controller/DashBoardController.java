@@ -19,6 +19,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
+import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -189,6 +190,7 @@ public class DashBoardController implements Initializable {
         
         //checking booking request date exceeds or not
         checkGettiingRequestTimeExcedd();
+        
 }
 
     private void setContentinDashBoard() {
@@ -201,13 +203,31 @@ public class DashBoardController implements Initializable {
 
         //setting data in top left of dashboard
         String imagename=udbll.getProfileName(Routing.USERNAME);
-        Image images = new Image(Routing.USERIMAGES+imagename);
-        
-        //filling images in circle
-        ImagePattern im = new ImagePattern(images);
-        imgUsrTop.setFill(im);
-        circleImgUsr.setFill(im);
-        
+        Image images=null;
+        try{
+            images = new Image(Routing.USERIMAGES + imagename);
+            //filling images in circle
+            ImagePattern im = new ImagePattern(images);
+            imgUsrTop.setFill(im);
+            circleImgUsr.setFill(im);
+
+        }
+        catch(IllegalArgumentException ex){
+             Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("System Eror");
+            alert.setHeaderText(null);
+            alert.setContentText("Currently System is Busy. Please try later ");
+
+            Stage alertstage = (Stage) alert.getDialogPane().getScene().getWindow();
+            alertstage.getIcons().add(new Image(Routing.IMAGES + Routing.ICON));
+            alertstage.show();
+            
+            PauseTransition pt =new PauseTransition(Duration.seconds(3));
+            pt.setOnFinished(e->{
+                                System.exit(0);
+            });
+            pt.play();
+        }
         //labeling user
         DatabaseConnection db = DatabaseConnection.getInstanceofDB();
         Connection conn = db.connectDB();
@@ -216,7 +236,7 @@ public class DashBoardController implements Initializable {
         try {
             while (userdata.next()) {
                 lblUsrName.setText(userdata.getString("first_name")+" " +userdata.getString("last_name"));
-                lblFullname.setText("Username: "+userdata.getString("username"));
+                lblFullname.setText(userdata.getString("username"));
                 lblDob.setText(userdata.getDate("dob").toString());
                 lblAddress.setText(userdata.getString("address"));
                 lblGender.setText(userdata.getString("gender"));
@@ -678,7 +698,11 @@ public class DashBoardController implements Initializable {
 
     //Set selected node to a content holder
     public void setNode(Node node) {
-        landiingPane.setVisible(false);
+        
+        if (landiingPane.isVisible()) {
+            landiingPane.setVisible(false);
+        }
+        
         activityPane.getChildren().clear();
         activityPane.getChildren().add((Node) node);
 
@@ -708,7 +732,7 @@ public class DashBoardController implements Initializable {
             Logger.getLogger(DashBoardController.class.getName()).log(Level.SEVERE, null, ex);
         }
         setNode(profile);
-        indcateTxt.setText(Routing.USERNAME+" Profile");
+        indcateTxt.setText(Routing.USERNAME);
         
     }
 
@@ -842,5 +866,30 @@ public class DashBoardController implements Initializable {
     private void managePaneVisible(MouseEvent event) {
         managePane.setVisible(true);
     }
+
+    @FXML
+    private void usernamelabelUndeline(MouseEvent event) {
+        lblUsrName.setUnderline(true);
+    }
+
+    @FXML
+    private void usernamelabelremoveUndeline(MouseEvent event) {
+        lblUsrName.setUnderline(false);
+    }
+    @FXML
+    private void landingPaneShow(MouseEvent event) {
+        //not used
+//        if (!landiingPane.isVisible()) {
+//            System.out.println("landing pane is false nad invisibbble");
+//            new FadeAnimation().fadeOut(activityPane, landiingPane);
+//            landiingPane.setVisible(true);
+//            setContentinDashBoard();
+//            indcateTxt.setText("Dashboard");
+//        }
+
+        //change in for showing activity pane
+    }
+
+    
 
 }
