@@ -147,6 +147,27 @@ public class HouseBLL {
          return i;
      }
   
+    //return true or false after checking apartment booked or not
+    public String getStatus(int houseid){
+        Connection conn;
+        String result=null;
+        conn = db.connectDB();
+        String sql = "SELECT status from house Where house_id=?; ";
+        PreparedStatement stat;
+        ResultSet rs;
+        try {
+            stat = conn.prepareStatement(sql);
+            stat.setInt(1,houseid);
+            rs = stat.executeQuery();
+            while (rs.next()) {
+               result =rs.getString("status");
+            }
+            db.disconnect(conn);
+        } catch (SQLException ex) {
+            System.out.println("Error " + ex.getMessage());
+        }
+        return result;
+    }
     //return house details 
     public ResultSet getHouseDetails(int houseid){
             Connection conn;

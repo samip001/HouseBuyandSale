@@ -51,8 +51,8 @@ public class UserDescriptionBLL {
              statement = conn.prepareStatement(sql);
              statement.setString(1, userdesc.getProfileName());
              statement.setString(2, userdesc.getProfileDescription());
-             statement.setString(3, userdesc.getProfileName());
-
+             statement.setString(3, userdesc.getUsername().getUsername());
+         
              //throws false
              statement.execute();
          } catch (SQLException ex) {

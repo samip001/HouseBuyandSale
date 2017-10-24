@@ -298,11 +298,6 @@ public class HouseResultController implements Initializable {
 
     @FXML
     private void houseIntrested(ActionEvent event) {
-
-        //for Intrested in toom
-//        Query query =new Query();
-//        query.userInterestedinHouse(hiu);
-
           InterestedUser interesteduser =new InterestedUser();
           interesteduser.setUsername(Routing.USERNAME);
           interesteduser.setHouseTypeName(houseTypeLabel.getText());

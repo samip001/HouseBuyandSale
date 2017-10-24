@@ -406,9 +406,9 @@ public class ProfileOverviewController implements Initializable {
                 udll.updateProfileDescription(ud);
             }
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("LogOut Details");
+            alert.setTitle("Profile Update Details");
             alert.setHeaderText(null);
-            alert.setContentText("Sucessfully update profile.\n\nPlease Login For Change Information");
+            alert.setContentText("Sucessfully Profile Updated.\n\nPlease Login For Change Information");
 
             Stage alertstage = (Stage) alert.getDialogPane().getScene().getWindow();
             alertstage.getIcons().add(new Image(Routing.IMAGES + Routing.ICON));

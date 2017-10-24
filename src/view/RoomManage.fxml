@@ -300,7 +300,7 @@
                                           <Label fx:id="profileBlocknfoLabel" layoutX="26.0" layoutY="71.0" prefHeight="16.0" prefWidth="212.0" text="Label" textFill="WHITE" />
                                        </children>
                                     </AnchorPane>
-                                    <ComboBox fx:id="listOfUserInterestedCombo" layoutX="28.0" layoutY="121.0" prefHeight="26.0" prefWidth="198.0" promptText="interested user list" />
+                                    <ComboBox fx:id="listOfUserInterestedCombo" layoutX="28.0" layoutY="121.0" onAction="#hideProfilePane" prefHeight="26.0" prefWidth="198.0" promptText="interested user list" />
                                     <Label layoutX="28.0" layoutY="165.0" text="Price For Reserved" textFill="#447477" />
                                     <GridPane layoutX="27.0" layoutY="181.0" prefHeight="90.0" prefWidth="242.0">
                                       <columnConstraints>
@@ -337,11 +337,6 @@
                               </AnchorPane>
                            </children>
                         </AnchorPane>
-                     </content>
-                  </Tab>
-                  <Tab text="Report options">
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                      </content>
                   </Tab>
                </tabs>

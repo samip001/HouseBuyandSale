@@ -45,7 +45,12 @@ import data.Booked;
 import data.InterestedUser;
 import data.NotificationUser;
 import data.Room;
+import java.util.Optional;
 import javafx.animation.PauseTransition;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.ApartmentBLL;
 import model.BookedBLL;
@@ -268,6 +273,7 @@ public class RoomManageController implements Initializable {
 
     @FXML
     private void viewDetails(MouseEvent event) {
+        errorLabel.setText("");
         id = tableRoomData.getSelectionModel().getSelectedItem().getRoomId();
     }
     
@@ -326,7 +332,7 @@ public class RoomManageController implements Initializable {
     @FXML
     private void tableToViewActivity(ActionEvent event) {
          if(id<0 || id==0){
-            errorLabel.setText("Select Any Room for Detail Viewing");
+            errorLabel.setText("Select Room for Detail Viewing");
         }
          else{
             //set all data in  view
@@ -339,12 +345,33 @@ public class RoomManageController implements Initializable {
     @FXML
     private void tableToUpdatePane(ActionEvent event) {
         if(id<0 || id  ==0 ){
-            errorLabel.setText("Select Any Room for Updating");
+            errorLabel.setText("Select Room for Updating");
         }
         else{
-            // set al data in field
-            setDataInOtherPane();
-            animatePane(tablePane, updateRoomPane);
+             //check it is booked or not
+              if("Booked".equals(new RoomBLL().getStatus(id))){
+                  Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                  alert.initModality(Modality.APPLICATION_MODAL);
+                  alert.setTitle("Update Information");
+                  alert.setHeaderText(null);
+                  alert.setContentText("Selected Room is Booked.\n\nEdit service is unavailable");
+
+                  Stage alertstage = (Stage) alert.getDialogPane().getScene().getWindow();
+                  alertstage.getIcons().add(new Image(Routing.IMAGES + Routing.ICON));
+                  alertstage.show();
+
+              }
+              else if("Validity Finish".equals(new RoomBLL().getStatus(id))){
+                  animatePane(tablePane, updateRoomPane);  
+                  setDataInOtherPane();
+                  errorInRoom("Invalid End Date. Please select Valid date");
+              }
+              else{
+                  // set al data in field
+                  setDataInOtherPane();
+                  errorInRoom("");
+                  animatePane(tablePane, updateRoomPane);
+              }
         }
         
     }
@@ -445,13 +472,15 @@ public class RoomManageController implements Initializable {
                         break;
                     
                     case "Booked":
-                        statusUpdateProfile.getSelectionModel().clearSelection();
-                        statusUpdateProfile.setValue("Booked");
-                        statusUpdateProfile.setDisable(true);
-                        
                         noselectUserPane.setVisible(true);
                         selectUserPane.setVisible(false);
                         noselectUserLbl.setText("This Posted information has been booked");
+                        break;
+                  
+                    case "Validity Finish":
+                        statusUpdateProfile.getSelectionModel().clearSelection();
+                        statusUpdateProfile.getItems().addAll("Available","Unavailable");
+                        statusUpdateProfile.setValue("Available");
                         break;
                         
                      default:
@@ -555,38 +584,55 @@ public class RoomManageController implements Initializable {
         String name = getUsernameFromCombo();
         //alert box if time bho bhane
         if(name !=null){
-            Booked bl =new Booked();
-            bl.setPostownername(Routing.USERNAME);
-            bl.setBookedusername(name);
-            bl.setHouseTypeName("Room");
-            bl.setHouseId(id);
-            bl.setRequestDate(java.sql.Date.valueOf(new Validation().getTodaydate()));
-            bl.setHouseEndDate(java.sql.Date.valueOf(postEndDateLblDtl.getText()));
-            bl.setRequestStatus("Waiting");
-            bl.setActualPrice(Float.valueOf(actualPriceLbl.getText()));
-            bl.setCommisionPrice(Float.valueOf(commisionPriceLbl.getText()));
-            bl.setTotalCost(Float.valueOf(totalPriceLbl.getText()));
-            bl.setUserStatus("UNKNOWN");
-            
-            //booking room
-            BookedBLL b =new BookedBLL();
-            b.bookedHouse(bl);
-            
-            //updating room status
-            r.updateRoomStatus("Waiting",id);
-            
-            //notify to booked user
-            NotificationUser nfu =new NotificationUser();
-            nfu.setFromuser(Routing.USERNAME);
-            nfu.setTouser(name);
-            nfu.setNotificationType(4);
-            nfu.setDetails("has asked you to confirm booking of "+Routing.USERNAME+" post about room that you have shown interested");
-            nfu.setStatus("Unseen");
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("House Book Request");
+            alert.setHeaderText(null);
+            alert.setContentText("Are You Sure Wanna Give This House to " + name + "?");
 
-            new NotificationBLL().sendNotification(nfu);
+            Stage alertstage = (Stage) alert.getDialogPane().getScene().getWindow();
+            alertstage.getIcons().add(new Image(Routing.IMAGES + Routing.ICON));
+
+            Optional<ButtonType> action = alert.showAndWait();
+
+            if (action.get() == ButtonType.OK) {
+                Booked bl = new Booked();
+                bl.setPostownername(Routing.USERNAME);
+                bl.setBookedusername(name);
+                bl.setHouseTypeName("Room");
+                bl.setHouseId(id);
+                bl.setRequestDate(java.sql.Date.valueOf(new Validation().getTodaydate()));
+                bl.setHouseEndDate(java.sql.Date.valueOf(postEndDateLblDtl.getText()));
+                bl.setRequestStatus("Waiting");
+                bl.setActualPrice(Float.valueOf(actualPriceLbl.getText()));
+                bl.setCommisionPrice(Float.valueOf(commisionPriceLbl.getText()));
+                bl.setTotalCost(Float.valueOf(totalPriceLbl.getText()));
+                bl.setUserStatus("UNKNOWN");
+
+                //booking room
+                BookedBLL b = new BookedBLL();
+                b.bookedHouse(bl);
+
+                //updating room status
+                r.updateRoomStatus("Waiting", id);
+
+                //notify to booked user
+                NotificationUser nfu = new NotificationUser();
+                nfu.setFromuser(Routing.USERNAME);
+                nfu.setTouser(name);
+                nfu.setNotificationType(4);
+                nfu.setDetails("has asked you to confirm booking of " + Routing.USERNAME + " post about room that you have shown interested");
+                nfu.setStatus("Unseen");
+
+                new NotificationBLL().sendNotification(nfu);
+
+                animatePane(viewDetailPane, tablePane);
+                id = 0;
+            }
+            else{
+              animatePane(viewDetailPane, tablePane);
+                id = 0;  
+            }
             
-            animatePane(viewDetailPane, tablePane);
-            id=0;
         }
        
         
@@ -741,6 +787,14 @@ public class RoomManageController implements Initializable {
     private void errorInRoom(String error) {
              errorRoomInfo.setText(error);
               roomSpinner.setVisible(false);
+    }
+    @FXML
+    private void hideProfilePane(ActionEvent event) {
+         if (userInteretedProfilePane.isVisible() || profileBlockPane.isVisible()) {
+            userInteretedProfilePane.setVisible(false);
+            profileBlockPane.setVisible(false);
+            BookUserBtn.setVisible(false);
+        }
     }
     
 }

@@ -30,6 +30,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import data.Booked;
 import data.NotificationUser;
+import java.util.Optional;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import model.ApartmentBLL;
@@ -177,6 +179,8 @@ public class BookedListController implements Initializable {
     private Label completeUsername;
     @FXML
     private JFXButton completeBackBtn;
+    
+    String enddate;
 
     /**
      * Initializes the controller class.
@@ -212,7 +216,6 @@ public class BookedListController implements Initializable {
 
     @FXML
     private void confirmBookRoomAction(ActionEvent event) {
-        ConfirmBookingHouse();
         animatePane(roomDetailsPane, tablePane);
         loadContentInTable();
     }
@@ -227,7 +230,6 @@ public class BookedListController implements Initializable {
 
     @FXML
     private void confirmBookHouseAction(ActionEvent event) {
-        ConfirmBookingHouse();
         animatePane(houseDetailsPane, tablePane);
         loadContentInTable();
 
@@ -243,9 +245,96 @@ public class BookedListController implements Initializable {
 
     @FXML
     private void confirmBookApartmentAction(ActionEvent event) {
-        ConfirmBookingHouse();
-        animatePane(apartmentDetailsPane, tablePane);
-        loadContentInTable();
+        noresultPane.setVisible(false);
+        houseId = bookedtable.getSelectionModel().getSelectedItem().getHouseId();
+        houseTypeName = bookedtable.getSelectionModel().getSelectedItem().getHouseTypeName();
+
+         int day = new Validation().getDateDifferenceinDay(enddate);
+            
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirm "+houseTypeName+" Request");
+            alert.setHeaderText(null);
+            alert.setContentText("You can't be able to book any house for  "+ String.valueOf(day)+"days.");
+
+            Stage alertstage = (Stage) alert.getDialogPane().getScene().getWindow();
+            alertstage.getIcons().add(new Image(Routing.IMAGES + Routing.ICON));
+
+            Optional<ButtonType> action = alert.showAndWait();
+
+            if (action.get() == ButtonType.OK) {
+                //update PRESENT status to Past;
+                b.updateBookedListUserStatus(houseId, houseTypeName, Routing.USERNAME);
+
+                //update request_ status
+                b.updateBookedListrequestStatus(houseId, houseTypeName, Routing.USERNAME);
+
+                java.sql.Date date = java.sql.Date.valueOf(new Validation().getTodaydate());
+                Booked bl = new Booked();
+                bl.setBookedusername(Routing.USERNAME);
+                bl.setBookedDate(date);
+                bl.setUserStatus("PRESENT");
+                bl.setRequestStatus("Booked");
+                bl.setHouseId(houseId);
+                bl.setHouseTypeName(houseTypeName);
+
+                b.confirmBookingfromRequestedUser(bl);
+
+                //update house type status
+                switch (houseTypeName) {
+                    case "Room":
+                        RoomBLL r = new RoomBLL();
+                        r.updateRoomStatus("Booked", houseId);
+                        break;
+                    case "House":
+                        HouseBLL h = new HouseBLL();
+                        h.updateHouseStatus("Booked", houseId);
+                        break;
+                    case "Apartment":
+                        ApartmentBLL abll = new ApartmentBLL();
+                        abll.updateApartmentStatus("Booked", houseId);
+                        break;
+
+                }
+
+                //setting notification after confirm booking
+                NotificationUser nfu = new NotificationUser();
+                nfu.setFromuser(Routing.USERNAME);
+                switch (houseTypeName) {
+                    case "Room":
+                        nfu.setTouser(RusernameLblDtl.getText());
+                        animatePane(roomDetailsPane, sucessBookPane);
+                        break;
+                    case "House":
+                        nfu.setTouser(HusernameLblDtl.getText());
+                        animatePane(houseDetailsPane, sucessBookPane);
+                        break;
+                    case "Apartment":
+                        nfu.setTouser(AusernameLblDtl.getText());
+                        animatePane(apartmentDetailsPane, sucessBookPane);
+                        break;
+                }
+                nfu.setNotificationType(5);
+                nfu.setDetails("has Confrimed Booking of your " + houseTypeName + " Post");
+                nfu.setStatus("Unseen");
+                new NotificationBLL().sendNotification(nfu);
+                
+                //deleting interested from interested
+                new InterestedUserBLL().cancelUserInterestedInHouse(Routing.USERNAME, houseId, houseTypeName);
+
+            }
+            else{
+                 switch (houseTypeName) {
+                    case "Room":
+                        animatePane(roomDetailsPane, tablePane);
+                        break;
+                    case "House":
+                        animatePane(houseDetailsPane, tablePane);
+                        break;
+                    case "Apartment":
+                        animatePane(apartmentDetailsPane, tablePane);
+                        break;
+                }
+            }
     }
 
     private void loadContentInTable() {
@@ -306,7 +395,7 @@ public class BookedListController implements Initializable {
         HouseBLL h =new HouseBLL();
         ApartmentBLL a =new ApartmentBLL();
         
-//        query = new Query();
+        //get house id and house type when booking request is selected
         houseId = bookedtable.getSelectionModel().getSelectedItem().getHouseId();
         houseTypeName = bookedtable.getSelectionModel().getSelectedItem().getHouseTypeName();
         
@@ -349,11 +438,15 @@ public class BookedListController implements Initializable {
                     RlocationLblDtl.setText(rs.getString("location"));
                     RroomNoLblDtl.setText(rs.getString("room_no"));
                     RpostedDatLblDTl.setText(rs.getDate("posted_date").toString());
-                    RpostEndDateLblDtl.setText(rs.getDate("end_date").toString());
+                    RpostEndDateLblDtl.setText(rs.getDate("end_date").toString()); 
                     RpriceLblDtl.setText(rs.getString("price"));
                     RpaidTypeLblDtl.setText(rs.getString("paid_type"));
                     RstatusLblDtl.setText(rs.getString("status"));
 
+                    //setting end date from room;
+                    enddate = rs.getDate("end_date").toString(); 
+                    
+                            
                     if (rs.getString("room_description").equals("")) {
                         RdescriptionLblDtl.setText("Descritpion Not Found");
                     } else {
@@ -387,6 +480,9 @@ public class BookedListController implements Initializable {
                     HpriceLblDtl.setText(rs.getString("price"));
                     HpaidTypeLblDtl.setText(rs.getString("paid_type"));
                     HstatusLblDtl.setText(rs.getString("status"));
+                    
+                    //setting end date from room;
+                    enddate = rs.getDate("end_date").toString(); 
 
                     if (rs.getString("house_description").equals("")) {
                         HdescriptionLblDtl.setText("Descritpion Not Found");
@@ -418,8 +514,17 @@ public class BookedListController implements Initializable {
                     ApostEndDateLbl.setText(rs.getString("end_date"));
                     ApriceLbl.setText(rs.getString("price"));
                     ApaidTypeLbl.setText(rs.getString("paid_type"));
-                    apartmentDescriptioonTxt.setText(rs.getString("apratment_description"));
                     AstatusLbl.setText(rs.getString("status"));
+                    
+                    //setting end date from room;
+                    enddate = rs.getDate("end_date").toString(); 
+
+                    if (rs.getString("apratment_description").equals("")) {
+                        apartmentDescriptioonTxt.setText("Descritpion Not Found");
+                    } else {
+                        apartmentDescriptioonTxt.setText(rs.getString("apratment_description"));
+                    }
+
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(ApartmentManageController.class.getName()).log(Level.SEVERE, null, ex);
@@ -427,54 +532,6 @@ public class BookedListController implements Initializable {
             db.disconnect(conn);
             animatePane(tablePane, apartmentDetailsPane);
         }
-    }
-
-    private void ConfirmBookingHouse() {
-        noresultPane.setVisible(false);
-        houseId = bookedtable.getSelectionModel().getSelectedItem().getHouseId();
-        houseTypeName = bookedtable.getSelectionModel().getSelectedItem().getHouseTypeName();
-
-        //update PRESENT status to Past;
-        b.updateBookedListUserStatus(houseId, houseTypeName,Routing.USERNAME);
-
-        //update request_ status
-        b.updateBookedListrequestStatus(houseId, houseTypeName,Routing.USERNAME);
-
-        java.sql.Date date = java.sql.Date.valueOf(new Validation().getTodaydate());
-        Booked bl = new Booked();
-        bl.setBookedusername(Routing.USERNAME);
-        bl.setBookedDate(date);
-        bl.setUserStatus("PRESENT");
-        bl.setRequestStatus("Booked");
-        bl.setHouseId(houseId);
-        bl.setHouseTypeName(houseTypeName);
-
-        b.confirmBookingfromRequestedUser(bl);
-
-        //setting notification after confirm booking
-        NotificationUser nfu = new NotificationUser();
-        nfu.setFromuser(Routing.USERNAME);
-        switch (houseTypeName) {
-            case "Room":
-                nfu.setTouser(RusernameLblDtl.getText());
-                
-                animatePane(roomDetailsPane, sucessBookPane);
-                break;
-            case "House":
-                nfu.setTouser(HusernameLblDtl.getText());
-                animatePane(houseDetailsPane, sucessBookPane);
-                break;
-            case "Apartment":
-                nfu.setTouser(AusernameLblDtl.getText());
-                animatePane(apartmentDetailsPane, sucessBookPane);
-                break;
-        }
-        nfu.setNotificationType(5);
-        nfu.setDetails("has Confrimed Booking of your "+houseTypeName+" Post");
-        nfu.setStatus("Unseen");
-        new NotificationBLL().sendNotification(nfu);
-        
-        
     }
 
     @FXML
@@ -533,7 +590,7 @@ public class BookedListController implements Initializable {
             b.deleteBookRequestofUserTimeExceeds(owner, houseTypeName, houseId);
         
             //updating apartment status
-            new ApartmentBLL().updateApartmentStatus("Available",houseId); // chaneg
+            new ApartmentBLL().updateApartmentStatus("Available",houseId); // change frm wating to available
             
             //notify to booked user
             NotificationUser nfu =new NotificationUser();

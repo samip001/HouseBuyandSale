@@ -145,6 +145,27 @@ public class RoomBLL {
         }
         return rs;
     }
+    //return true or false after checking apartment booked or not
+    public String getStatus(int houseid){
+        Connection conn;
+        String result=null;
+        conn = db.connectDB();
+        String sql = "SELECT status from room Where room_id=?; ";
+        PreparedStatement stat;
+        ResultSet rs;
+        try {
+            stat = conn.prepareStatement(sql);
+            stat.setInt(1,houseid);
+            rs = stat.executeQuery();
+            while (rs.next()) {
+               result =rs.getString("status");
+            }
+            db.disconnect(conn);
+        } catch (SQLException ex) {
+            System.out.println("Error " + ex.getMessage());
+        }
+        return result;
+    }
     
      //return room details 
     public ResultSet getRoomDetails(int id){
@@ -192,7 +213,8 @@ public class RoomBLL {
         Connection conn;
         conn = db.connectDB();
         String sql ="SELECT r.room_id,r.username,r.searching,r.location,r.posted_date,r.end_date,r.status,r.visibility,ut.profile_name "
-                + "FROM room as r,user_description as ut WHERE r.username = ut.username AND r.visibility=? AND r.location LIKE ? ";
+                + "FROM room as r,user_description as ut WHERE "
+                + "r.username = ut.username AND r.visibility=? AND r.location LIKE ? ";
         
         PreparedStatement stat;
         ResultSet rs = null;

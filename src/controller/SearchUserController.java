@@ -135,9 +135,13 @@ public class SearchUserController implements Initializable {
                                     urc.followBtn.setText("Requested");
                                     urc.followBtn.setDisable(true);
                                     break;
-                                default:
+                                case "Accepted":
                                     urc.followBtn.setText("Accepted");
                                     urc.followBtn.setDisable(true);
+                                    break;
+
+                                default:
+                                    urc.followBtn.setDisable(false);
                                     break;
                             }
                              if(Routing.USERNAME.equals(rs.getString("username"))){

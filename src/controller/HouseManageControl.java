@@ -46,7 +46,12 @@ import data.Booked;
 import data.House;
 import data.InterestedUser;
 import data.NotificationUser;
+import java.util.Optional;
 import javafx.animation.PauseTransition;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import model.ApartmentBLL;
 import model.BookedBLL;
 import model.FollowedUserBLL;
@@ -267,6 +272,7 @@ public class HouseManageControl implements Initializable {
 
     @FXML
     private void viewDetails(MouseEvent event) {
+        errorLabel.setText("");
         id = tableHouseData.getSelectionModel().getSelectedItem().getHouseId();
     }
 
@@ -277,25 +283,44 @@ public class HouseManageControl implements Initializable {
     @FXML
     private void tableToViewActivity(ActionEvent event) {
         if (id < 0 || id == 0) {
-            errorLabel.setText("Select Any Room for Detail Viewing");
+            errorLabel.setText("Select House for Detail Viewing");
         } else {
             //set all data in  view
             animatePane(tablePane, viewDetailPane);
             setDataInOtherPane();
             setIntestedUserListInTable();
-
-            //condition check for room status
         }
     }
 
     @FXML
     private void viewToUpdatePane(ActionEvent event) {
         if (id < 0 || id == 0) {
-            errorLabel.setText("Select Any Room for Updating");
+            errorLabel.setText("Select House for Updating");
         } else {
-            // set al data in field
-            setDataInOtherPane();
-            animatePane(tablePane, houseupdatePane);
+             //check it is booked or not
+              if("Booked".equals(new HouseBLL().getStatus(id))){
+                  Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                  alert.initModality(Modality.APPLICATION_MODAL);
+                  alert.setTitle("Update Information");
+                  alert.setHeaderText(null);
+                  alert.setContentText("Selected House is Booked.\n\n Edit service is unavailable");
+
+                  Stage alertstage = (Stage) alert.getDialogPane().getScene().getWindow();
+                  alertstage.getIcons().add(new Image(Routing.IMAGES + Routing.ICON));
+                  alertstage.show();
+
+              }
+              else if("Validity Finish".equals(new HouseBLL().getStatus(id))){
+                  animatePane(tablePane, houseupdatePane);  
+                  setDataInOtherPane();
+                  errorInHouse("Invalid End Date. Please select Valid date");
+              }
+              else{
+                  // set al data in field
+                  setDataInOtherPane();
+                  errorInHouse("");
+                  animatePane(tablePane, houseupdatePane);
+              }
         }
     }
 
@@ -348,39 +373,57 @@ public class HouseManageControl implements Initializable {
         String name = getUsernameFromCombo();
         //alert box if time bho bhane
         if(name !=null){
-            Booked bl =new Booked();
-            bl.setPostownername(Routing.USERNAME);
-            bl.setBookedusername(name);
-            bl.setHouseTypeName("House");
-            bl.setHouseId(id);
-            bl.setRequestDate(java.sql.Date.valueOf(new Validation().getTodaydate()));
-            bl.setHouseEndDate(java.sql.Date.valueOf(postEndDateLblDtl.getText()));
-            bl.setRequestStatus("Waiting");
-            bl.setActualPrice(Float.valueOf(actualPriceLbl.getText()));
-            bl.setCommisionPrice(Float.valueOf(commisionPriceLbl.getText()));
-            bl.setTotalCost(Float.valueOf(totalPriceLbl.getText()));
-            bl.setUserStatus("UNKNOWN");
-            
-            //booking room
-             BookedBLL b =new BookedBLL();
-              b.bookedHouse(bl);
-            
-            //updating house status
-            h.updateHouseStatus("Waiting",id); // chaneg
-            
-            
-            //notify to booked user
-            NotificationUser nfu =new NotificationUser();
-            nfu.setFromuser(Routing.USERNAME);
-            nfu.setTouser(name);
-            nfu.setNotificationType(4);
-            nfu.setDetails("has asked you to confirm booking of "+Routing.USERNAME+" post about house that you have shown interested");
-            nfu.setStatus("Unseen");
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("House Book Request");
+            alert.setHeaderText(null);
+            alert.setContentText("Are You Sure Wanna Give This House to " + name + "?");
 
-            new NotificationBLL().sendNotification(nfu);
+            Stage alertstage = (Stage) alert.getDialogPane().getScene().getWindow();
+            alertstage.getIcons().add(new Image(Routing.IMAGES + Routing.ICON));
+
+            Optional<ButtonType> action = alert.showAndWait();
+
+            if (action.get() == ButtonType.OK) {
+                Booked bl = new Booked();
+                bl.setPostownername(Routing.USERNAME);
+                bl.setBookedusername(name);
+                bl.setHouseTypeName("House");
+                bl.setHouseId(id);
+                bl.setRequestDate(java.sql.Date.valueOf(new Validation().getTodaydate()));
+                bl.setHouseEndDate(java.sql.Date.valueOf(postEndDateLblDtl.getText()));
+                bl.setRequestStatus("Waiting");
+                bl.setActualPrice(Float.valueOf(actualPriceLbl.getText()));
+                bl.setCommisionPrice(Float.valueOf(commisionPriceLbl.getText()));
+                bl.setTotalCost(Float.valueOf(totalPriceLbl.getText()));
+                bl.setUserStatus("UNKNOWN");
+
+                //booking room
+                BookedBLL b = new BookedBLL();
+                b.bookedHouse(bl);
+
+                //updating house status
+                h.updateHouseStatus("Waiting", id); // chaneg
+
+                //notify to booked user
+                NotificationUser nfu = new NotificationUser();
+                nfu.setFromuser(Routing.USERNAME);
+                nfu.setTouser(name);
+                nfu.setNotificationType(4);
+                nfu.setDetails("has asked you to confirm booking of " + Routing.USERNAME + " post about house that you have shown interested");
+                nfu.setStatus("Unseen");
+
+                new NotificationBLL().sendNotification(nfu);
+
+                animatePane(viewDetailPane, tablePane);
+                id = 0;
+            }
             
-            animatePane(viewDetailPane, tablePane);
-            id=0;
+            else{
+                  animatePane(viewDetailPane, tablePane);
+                  id = 0;
+            }
+             
+            
         }
     }
 
@@ -619,16 +662,15 @@ public class HouseManageControl implements Initializable {
                         break;
                         
                    case "Booked":
-                        statusofHouseCombo.getSelectionModel().clearSelection();
-                        statusofHouseCombo.setValue("Booked");
-                        statusofHouseCombo.setDisable(true);
-                        
                         noselectUserPane.setVisible(true);
                         selectUserPane.setVisible(false);
                         noselectUserLbl.setText("This Posted information has been booked");
-                        
                         break;
-                        
+                   case "Validity Finish":
+                        statusofHouseCombo.getSelectionModel().clearSelection();
+                        statusofHouseCombo.getItems().addAll("Available","Unavailable");
+                        statusofHouseCombo.setValue("Available");
+                        break;
                      default:
                         statusofHouseCombo.getSelectionModel().clearSelection();
                         statusofHouseCombo.setValue("Validity Finish");
@@ -716,10 +758,10 @@ public class HouseManageControl implements Initializable {
             errorInHouse("*House Description Not Valid");
         }
         else if(statusofHouseCombo.getSelectionModel().isEmpty()){
-            errorInHouse("Select Post Status");
+            errorInHouse("*Select Post Status");
         }
          else if(visbilityHouse.getSelectionModel().isEmpty()){
-            errorInHouse("Select Post Visibility");
+            errorInHouse("*Select Post Visibility");
         }
         else{
              errorHouseInfo.setText("");
@@ -756,6 +798,14 @@ public class HouseManageControl implements Initializable {
         pane2.setVisible(true);
     }
 
+    @FXML
+    private void hideProfilePane(ActionEvent event) {
+        if (userInteretedProfilePane.isVisible() || profileBlockPane.isVisible()) {
+            userInteretedProfilePane.setVisible(false);
+            profileBlockPane.setVisible(false);
+            BookUserBtn.setVisible(false);
+        }
+    }
    
 
 }

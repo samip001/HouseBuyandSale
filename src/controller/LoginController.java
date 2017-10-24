@@ -123,19 +123,20 @@ public class LoginController implements Initializable {
 
     @FXML
     void loginCheck(ActionEvent event) {
-        errorInfo.setText("");
-        load.setVisible(true);
-        PauseTransition pt =new PauseTransition();
-        pt.setDuration(Duration.seconds(2));
-        pt.setOnFinished((ActionEvent e) -> {
             Validation vd = new Validation();
             if (!vd.validateAddress(usernameTxt.getText().trim())) {
-                errorInfo("Invalid Username");
+                errorInfo("*Invalid Username");
             } else if (passwordTxt.getText().length() < 5) {
-                errorInfo("Invalid Password Length");
+                errorInfo("*Invalid Password Length");
             } else if (!vd.validatePassword(passwordTxt.getText().trim())) {
-                errorInfo("Invalid Password ! Try Next ");
+                errorInfo("*Password Type Mismatch");
             } else {
+                errorInfo.setText("");
+                load.setVisible(true);
+                PauseTransition pt = new PauseTransition();
+                pt.setDuration(Duration.seconds(2));
+                pt.setOnFinished((ActionEvent e) -> {
+           
                 UserBLL ubll =new UserBLL();
                 
                 //user check exits or not in system
@@ -182,10 +183,9 @@ public class LoginController implements Initializable {
                     usernameTxt.requestFocus();
                     passwordTxt.setText(null);
                 }
-            }
         });
-        pt.play();
-
+              pt.play();
+        }
     }
 
     @FXML
@@ -224,10 +224,7 @@ public class LoginController implements Initializable {
             return false;
         }
     }
-    
-    
-    
-    //used fir error
+    //used for showing error
     public void errorInfo(String error){
         errorInfo.setText(error);
         load.setVisible(false);

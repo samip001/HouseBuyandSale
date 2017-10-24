@@ -178,16 +178,18 @@ public class DashBoardController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
         //setting content in all the component
         setContentinDashBoard();
         
         //poost that validity fiiniished update too unavailable
         checkPostValidiity();
         
-        //Booookiing request
+        //Booookiing request send to user and exceed more than 5 days
         //checkiing own sending reuqest too other
         checkOwnRequestTimesExceed();
-        
+       
+         //Booookiing request recieve  and exceeds more than 5 days
         //checking booking request date exceeds or not
         checkGettiingRequestTimeExcedd();
         
@@ -213,7 +215,7 @@ public class DashBoardController implements Initializable {
 
         }
         catch(IllegalArgumentException ex){
-             Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("System Eror");
             alert.setHeaderText(null);
             alert.setContentText("Currently System is Busy. Please try later ");

@@ -46,7 +46,12 @@ import data.Apartment;
 import data.Booked;
 import data.InterestedUser;
 import data.NotificationUser;
+import java.util.Optional;
 import javafx.animation.PauseTransition;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import model.ApartmentBLL;
 import model.ApartmentTypeBLL;
 import model.BookedBLL;
@@ -128,7 +133,6 @@ public class ApartmentManageController implements Initializable {
     private JFXButton updateApartmentBtn;
     @FXML
     private JFXComboBox<String> visibilityApartment;
-   
     @FXML
     private AnchorPane viewDetailPane;
     @FXML
@@ -211,7 +215,6 @@ public class ApartmentManageController implements Initializable {
     private AnchorPane apartmentInterestedUserPane;
     @FXML
     private JFXButton viewBackBtn;
-    
    @FXML
     private Label visibilityLabel;
     @FXML
@@ -234,9 +237,6 @@ public class ApartmentManageController implements Initializable {
     final ObservableList<String> username = FXCollections.observableArrayList();
     
    private  ApartmentBLL a;
-        
-    
-    
     
     /**
      * Initializes the controller class.
@@ -278,6 +278,7 @@ public class ApartmentManageController implements Initializable {
     
      @FXML
     private void getIdofApartment(MouseEvent event) {
+        errorLabel.setText("");
         id=tableApartmentData.getSelectionModel().getSelectedItem().getApartmentId();
     }
 
@@ -338,25 +339,44 @@ public class ApartmentManageController implements Initializable {
     @FXML
     private void tableToViewActivity(ActionEvent event) {
         if (id < 0 || id == 0) {
-            errorLabel.setText("Select Any Room for Detail Viewing");
+            errorLabel.setText("Select Apartment for Detail Viewing");
         } else {
             //set all data in  view
             animatePane(tablePane, viewDetailPane);
             setDataInOtherPane();
             setIntestedUserListInTable();
-
-            //condition check for room status
         }
     }
 
     @FXML
     private void viewToUpdatePane(ActionEvent event) {
           if (id < 0 || id == 0) {
-            errorLabel.setText("Select Any Room for Updating");
+            errorLabel.setText("Select Apartment for Updating");
         } else {
-            // set al data in field
-            setDataInOtherPane();
-            animatePane(tablePane, apartmentPane);
+              //check it is booked or not
+              if("Booked".equals(new ApartmentBLL().getStatus(id))){
+                  Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                  alert.initModality(Modality.APPLICATION_MODAL);
+                  alert.setTitle("Update Information");
+                  alert.setHeaderText(null);
+                  alert.setContentText("Selected Apartment is Booked.\n\nApartment edit service is unavailable");
+
+                  Stage alertstage = (Stage) alert.getDialogPane().getScene().getWindow();
+                  alertstage.getIcons().add(new Image(Routing.IMAGES + Routing.ICON));
+                  alertstage.show();
+
+              }
+              else if("Validity Finish".equals(new ApartmentBLL().getStatus(id))){
+                  animatePane(tablePane, apartmentPane);  
+                  setDataInOtherPane();
+                  errorInApartment("Invalid End Date. Please select Valid date");
+              }
+              else{
+                  // set al data in field
+                  setDataInOtherPane();
+                  errorInApartment("");
+                  animatePane(tablePane, apartmentPane);  
+              }
         }
     }
 
@@ -364,15 +384,12 @@ public class ApartmentManageController implements Initializable {
     private void showInnterestedUserProfile(ActionEvent event) {
         String name = getUsernameFromCombo();
         //check visibilty and followe user permission
-        //ahile chai yetikai garchu ma
         if (name != null) {
             userInteretedProfilePane.setVisible(true);
             
             UserBLL u =new UserBLL();
             FollowedUserBLL fu =new FollowedUserBLL();
             BookedBLL b =new BookedBLL();
-            
-//            Query query = new Query();
             
              if (u.getUserVisibilityStatus(name).equals("Private") ) {
                  profileBlockPane.setVisible(true);
@@ -441,39 +458,56 @@ public class ApartmentManageController implements Initializable {
         String name = getUsernameFromCombo();
         //alert box if time bho bhane
         if(name !=null){
-            Booked bl =new Booked();
-            bl.setPostownername(Routing.USERNAME);
-            bl.setBookedusername(name);
-            bl.setHouseTypeName("Apartment");
-            bl.setHouseId(id);
-            bl.setRequestDate(java.sql.Date.valueOf(new Validation().getTodaydate()));
-            bl.setHouseEndDate(java.sql.Date.valueOf(postEndDateLbl.getText()));
-            bl.setRequestStatus("Waiting");
-            bl.setActualPrice(Float.valueOf(actualPriceLbl.getText()));
-            bl.setCommisionPrice(Float.valueOf(commisionPriceLbl.getText()));
-            bl.setTotalCost(Float.valueOf(totalPriceLbl.getText()));
-            bl.setUserStatus("UNKNOWN");
-            
-            
-            BookedBLL b =new BookedBLL();
-            //booking room
-            b.bookedHouse(bl);
-            
-            //updating apartment status
-            a.updateApartmentStatus("Waiting",id); // chaneg
-            
-            //notify to booked user
-            NotificationUser nfu =new NotificationUser();
-            nfu.setFromuser(Routing.USERNAME);
-            nfu.setTouser(name);
-            nfu.setNotificationType(4);
-            nfu.setDetails("has asked you to confirm booking of "+Routing.USERNAME+" post about Apartment that you have shown interested");
-            nfu.setStatus("Unseen");
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Apartment Book Request");
+            alert.setHeaderText(null);
+            alert.setContentText("Are You Sure Wanna Give This Apartment to " + name + "?");
 
-            new NotificationBLL().sendNotification(nfu);
+            Stage alertstage = (Stage) alert.getDialogPane().getScene().getWindow();
+            alertstage.getIcons().add(new Image(Routing.IMAGES + Routing.ICON));
+
+            Optional<ButtonType> action = alert.showAndWait();
+
+            if (action.get() == ButtonType.OK) {
+                //booked request send to username
+                Booked bl = new Booked();
+                bl.setPostownername(Routing.USERNAME);
+                bl.setBookedusername(name);
+                bl.setHouseTypeName("Apartment");
+                bl.setHouseId(id);
+                bl.setRequestDate(java.sql.Date.valueOf(new Validation().getTodaydate()));
+                bl.setHouseEndDate(java.sql.Date.valueOf(postEndDateLbl.getText()));
+                bl.setRequestStatus("Waiting");
+                bl.setActualPrice(Float.valueOf(actualPriceLbl.getText()));
+                bl.setCommisionPrice(Float.valueOf(commisionPriceLbl.getText()));
+                bl.setTotalCost(Float.valueOf(totalPriceLbl.getText()));
+                bl.setUserStatus("UNKNOWN");
+
+                BookedBLL b = new BookedBLL();
+                //booking room
+                b.bookedHouse(bl);
+
+                //updating apartment status
+                a.updateApartmentStatus("Waiting", id); // chaneg
+
+                //notify to booked user
+                NotificationUser nfu = new NotificationUser();
+                nfu.setFromuser(Routing.USERNAME);
+                nfu.setTouser(name);
+                nfu.setNotificationType(4);
+                nfu.setDetails("has asked you to confirm booking of " + Routing.USERNAME + " post about Apartment that you have shown interested");
+                nfu.setStatus("Unseen");
+
+                new NotificationBLL().sendNotification(nfu);
+
+                animatePane(viewDetailPane, tablePane);
+                id = 0;
+            } else {
+                //returned to table view
+                animatePane(viewDetailPane, tablePane);
+                id = 0;
+            }
             
-            animatePane(viewDetailPane, tablePane);
-            id=0;
     }
  }
     
@@ -520,7 +554,7 @@ public class ApartmentManageController implements Initializable {
                         paidTypeApartment.setValue("Yearly");
                         break;
                 }
-                 
+                //status of apartment
                 switch (rs.getString("status")) {
                     case "Available":
                         statusofApartment.getSelectionModel().clearSelection();
@@ -534,6 +568,7 @@ public class ApartmentManageController implements Initializable {
                         break;
                     case "Waiting":
                         statusofApartment.getSelectionModel().clearSelection();
+                        statusofApartment.getItems().add("Waiting");
                         statusofApartment.setValue("Waiting");
                         
                         //user cannot select other user for booking
@@ -542,16 +577,18 @@ public class ApartmentManageController implements Initializable {
                         noselectUserLbl.setText("You have already selected one User.\n Wait For him to Respond");
                         
                         break;
-                        
                    case "Booked":
-                        statusofApartment.getSelectionModel().clearSelection();
-                        statusofApartment.setValue("Booked");
-                        statusofApartment.setDisable(true);
-                        
                         noselectUserPane.setVisible(true);
                         selectUserPane.setVisible(false);
                         noselectUserLbl.setText("This Posted information has been booked");
                         
+                        break;
+                   
+                        
+                      case "Validity Finish":
+                        statusofApartment.getSelectionModel().clearSelection();
+                        statusofApartment.getItems().addAll("Available","Unavailable");
+                        statusofApartment.setValue("Available");
                         break;
                         
                      default:
@@ -755,7 +792,17 @@ public class ApartmentManageController implements Initializable {
             nf.show();
             id=0;
             animatePane(apartmentPane, tablePane);
+
         } 
+    }
+
+    @FXML
+    private void hideProfllePane(ActionEvent event) {
+        if (userInteretedProfilePane.isVisible() || profileBlockPane.isVisible()) {
+            userInteretedProfilePane.setVisible(false);
+            profileBlockPane.setVisible(false);
+            BookUserBtn.setVisible(false);
+        }
     }
 
 
