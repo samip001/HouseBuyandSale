@@ -529,12 +529,9 @@ public class RoomManageController implements Initializable {
     private void setIntestedUserListInTable(){
         interestedUser.clear();
         username.clear();
-        
         InterestedUserBLL iu =new InterestedUserBLL();
-        
         DatabaseConnection db = DatabaseConnection.getInstanceofDB();
         Connection conn = db.connectDB();
-
         ResultSet rs = iu.getUserInterestedinHouseType(id,"Room");
         try {
             if (!rs.isBeforeFirst()) {
@@ -632,10 +629,7 @@ public class RoomManageController implements Initializable {
               animatePane(viewDetailPane, tablePane);
                 id = 0;  
             }
-            
         }
-       
-        
     }
 
     @FXML

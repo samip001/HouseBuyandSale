@@ -52,7 +52,7 @@ public class Validation {
         }
     }
     public boolean validatePassword(String value){
-        Pattern p = Pattern.compile("((?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%!&]).{5,15})");
+        Pattern p = Pattern.compile("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%!&]).{5,15})");
         Matcher m = p.matcher(value);
         if(m.find() && m.group().equals(value)){
             return true; 

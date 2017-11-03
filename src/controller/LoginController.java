@@ -10,6 +10,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXSpinner;
 import com.jfoenix.controls.JFXTextField;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -146,7 +147,9 @@ public class LoginController implements Initializable {
                     //remove and write new user and password
                     String storeUserandPass = "user="+usernameTxt.getText().trim()+"\npassword="+passwordTxt.getText().trim();
                     try {
-                        try (FileWriter fw = new FileWriter(Routing.HELPER + "user.properties")) {
+                        File file =new File(Routing.PROPERTIES);
+                        try ( 
+                                FileWriter fw = new FileWriter(file)) {
                             fw.write(storeUserandPass);
                             fw.close();
                         }

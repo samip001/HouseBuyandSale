@@ -197,7 +197,7 @@ public class SignUpController implements Initializable{
                 errorAlert("*Invalid Username ");
                 userNameTxt.requestFocus();
             } else if (!validate.validatePassword(passwordTxt.getText())) {
-                errorAlert("*Password Must Contain One Small, Capital & Special Character");
+                errorAlert("*Password Must Contain One Small, Capital, Number & Special Character");
                 passwordTxt.requestFocus();
             } else if (!passwordTxt.getText().equals(rePasswordTxt.getText())) {
                 errorAlert("*Password Not Match");
@@ -486,20 +486,52 @@ public class SignUpController implements Initializable{
     }
     
     private void setContentinTermsCondition(){
-         txtarea.setText("Terms and Coondition\n" +
+         txtarea.setText("Terms and Coondition\n\n" +
                     "Please read these Terms and Conditions carefully before using the  desktop application operated by XYZ Company\n\n"
                  +"Your access to and use of the Service is conditioned on your acceptance of and compliance with these Terms. \n\n"
-                 + "These Terms apply to all visitors, users and others who access or use the Service.\n\n\n" 
-                 +   "By accessing or using the Service you agree to be bound by these Terms. "
-                 + "If you disagree with any part of the terms then you may not access the Service.\n\n"
-                 + "Where does it come from?\n\n"
-                 +"Contrary to popular belief, Lorem Ipsum is not simply random text. "
-                 + "It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a "
-                 + "Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, "
-                 + "from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable sou"
-                 + "rce. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) "
-                 + "by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance."
-                 + " The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.\n");
+                 +"1. Introduction\n"
+                 +"These Terms will be applied fully and affect to your use of this application. "
+                 + "By using this apllication, you agreed to accept all terms and conditions written in here. "
+                 + "You must not use this application if you disagree with any of these application Standard Terms and Conditions.\n" +
+                        "Minors or people below 16 years old are not allowed to use this application.\n\n\n" 
+                 +"2. Intellectual Property Rights\n"
+                 + "Other than the content you own, under these Terms, XYZ "
+                 + "and/or its licensors own all the intellectual property rights and materials contained in this application.\n" +
+                    "You are granted limited license only for purposes of viewing the material contained on this application.\n\n\n" +
+                    "3. Restrictions\n" +
+"You are specifically restricted from all of the following\n" +
+"•  publishing any application material in any other media;\n" +
+"•  selling, sublicensing and/or otherwise commercializing any application material;\n" +
+"•  publicly performing and/or showing any application material;\n" +
+"•  using this application in any way that is or may be damaging to this application;\n" +
+"•  using this application in any way that impacts user access to this application;\n" +
+"•  using this application contrary to applicable laws and regulations, or in any way may cause harm to the application, or to any person or business entity;\n" +
+"•  engaging in any data mining, data harvesting, data extracting or any other similar activity in relation to this application;\n" +
+"•  using this application to engage in any advertising or marketing.\n" +
+                "Certain areas of this application are restricted from being access by you and XYZ may further restrict access by you to any areas of this application, at any time, in absolute discretion. "
+                 + "Any user ID and password you may have for this application are confidential and you must maintain confidentiality as well.\n\n\n" +
+            "4.	Your Content\n" +
+"In these application Standard Terms and Conditions, “Your Content” shall mean any audio, video text, images or other material you choose to display on this application. "
+                 + "By displaying Your Content, you grant XYZ a non-exclusive, worldwide irrevocable, sub licensable license to use, reproduce, adapt, publish, translate and distribute it in any and all media.\n" +
+"Your Content must be your own and must not be invading any third-party’s rights. XYZ reserves the right to remove any of Your Content from this application at any time without notice.\n\n\n" +
+"5. No warranties\n" +
+"This application is provided “as is,” with all faults, and XYZ express no representations or warranties, of any kind related to this application or the materials contained on this application. Also, nothing contained on this application shall be interpreted as advising you.\n\n\n" +
+"6. Limitation of liability\n" +
+"In no event shall XYZ, nor any of its officers, directors and employees, shall be held liable for anything arising out of or in any way connected with your use of this application whether such liability is under contract.  "
+                 + "XYZ, including its officers, directors and employees shall not be held liable for any indirect, consequential or special liability arising out of or in any way related to your use of this application.\n\n\n" +
+"7. Indemnification\n" +
+"You hereby indemnify to the fullest extent XYZ from and against any and/or all liabilities, costs, demands, causes of action, damages and expenses arising in any way related to your breach of any of the provisions of these Terms.\n\n\n" +
+"8. Severability\n" +
+"If any provision of these Terms is found to be invalid under any applicable law, such provisions shall be deleted without affecting the remaining provisions herein.\n\n\n" +
+"9. Variation of Terms\n" +
+"XYZ is permitted to revise these Terms at any time as it sees fit, and by using this application you are expected to review these Terms on a regular basis.\n\n\n" +
+"10. Assignment\n" +
+"The XYZ is allowed to assign, transfer, and subcontract its rights and/or obligations under these Terms without any notification. However, you are not allowed to assign, transfer, or subcontract any of your rights and/or obligations under these Terms.\n\n\n" +
+"11. Entire Agreement\n" +
+"These Terms constitute the entire agreement between XYZ and you in relation to your use of this application, and supersede all prior agreements and understandings.\n\n\n" +
+"12.	Governing Law & Jurisdiction\n" +
+"These Terms will be governed by and interpreted in accordance with the laws of the State of Kathmandu, and you submit to the non-exclusive jurisdiction of the state and federal courts located in Kathmandu for the resolution of any disputes."
+         );
     }
 }
     

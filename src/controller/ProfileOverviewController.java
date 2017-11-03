@@ -57,7 +57,9 @@ import data.User;
 import data.UserDescription;
 import java.io.FileWriter;
 import javafx.animation.PauseTransition;
+import javafx.scene.paint.Paint;
 import javafx.util.Duration;
+import model.BookedBLL;
 import model.UserBLL;
 import model.UserDescriptionBLL;
 
@@ -162,6 +164,10 @@ public class ProfileOverviewController implements Initializable {
     private String actionType;
     private String imageName, dbImageName;
     private File file;
+    @FXML
+    private MaterialDesignIconView activeGlyph;
+    @FXML
+    private MaterialDesignIconView inactiveGlyph;
     
     /**
      * Initializes the controller class.
@@ -185,6 +191,19 @@ public class ProfileOverviewController implements Initializable {
     //Used to set data
     private void setAllData() {
         //in profile pane
+        
+        //checks whether user is busy or avaulable
+            if(new BookedBLL().getUserStatus(Routing.USERNAME) >0){
+                 user1Label.setText("Unavailable");
+                 inactiveGlyph.setVisible(true);
+                 user1Label.setTextFill(Paint.valueOf("#eb0d0d"));
+                  }
+             else{
+                 user1Label.setText("Available");
+                 user1Label.setTextFill(Paint.valueOf("#3fb033"));
+                 inactiveGlyph.setVisible(false);
+                 }
+           // other components
         DatabaseConnection db = DatabaseConnection.getInstanceofDB();
         Connection conn = db.connectDB();
 
@@ -192,8 +211,6 @@ public class ProfileOverviewController implements Initializable {
         ResultSet userdata = ubll.getUserProfileDetails(Routing.USERNAME);
         try {
             while (userdata.next()) {
-
-                user1Label.setText(userdata.getString("username"));
                 nameLabel.setText(userdata.getString("first_name")+" " +userdata.getString("last_name"));
                 user2Label.setText(userdata.getString("username"));
                 genderLabel.setText(userdata.getString("gender"));
@@ -419,7 +436,7 @@ public class ProfileOverviewController implements Initializable {
                 String storeUserandPass = "user=\npassword=";
                 //file user and password must be ket empty
                 try {
-                    try (FileWriter fw = new FileWriter(Routing.HELPER + "user.properties")) {
+                    try (FileWriter fw = new FileWriter(Routing.PROPERTIES)) {
                         fw.write(storeUserandPass);
                         fw.close();
                     }

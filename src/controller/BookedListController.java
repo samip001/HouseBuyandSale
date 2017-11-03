@@ -216,7 +216,7 @@ public class BookedListController implements Initializable {
 
     @FXML
     private void confirmBookRoomAction(ActionEvent event) {
-        animatePane(roomDetailsPane, tablePane);
+        ConfirmBooking();
         loadContentInTable();
     }
 
@@ -230,7 +230,7 @@ public class BookedListController implements Initializable {
 
     @FXML
     private void confirmBookHouseAction(ActionEvent event) {
-        animatePane(houseDetailsPane, tablePane);
+        ConfirmBooking();
         loadContentInTable();
 
     }
@@ -245,97 +245,9 @@ public class BookedListController implements Initializable {
 
     @FXML
     private void confirmBookApartmentAction(ActionEvent event) {
-        noresultPane.setVisible(false);
-        houseId = bookedtable.getSelectionModel().getSelectedItem().getHouseId();
-        houseTypeName = bookedtable.getSelectionModel().getSelectedItem().getHouseTypeName();
-
-         int day = new Validation().getDateDifferenceinDay(enddate);
-            
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirm "+houseTypeName+" Request");
-            alert.setHeaderText(null);
-            alert.setContentText("You can't be able to book any house for  "+ String.valueOf(day)+"days.");
-
-            Stage alertstage = (Stage) alert.getDialogPane().getScene().getWindow();
-            alertstage.getIcons().add(new Image(Routing.IMAGES + Routing.ICON));
-
-            Optional<ButtonType> action = alert.showAndWait();
-
-            if (action.get() == ButtonType.OK) {
-                //update PRESENT status to Past;
-                b.updateBookedListUserStatus(houseId, houseTypeName, Routing.USERNAME);
-
-                //update request_ status
-                b.updateBookedListrequestStatus(houseId, houseTypeName, Routing.USERNAME);
-
-                java.sql.Date date = java.sql.Date.valueOf(new Validation().getTodaydate());
-                Booked bl = new Booked();
-                bl.setBookedusername(Routing.USERNAME);
-                bl.setBookedDate(date);
-                bl.setUserStatus("PRESENT");
-                bl.setRequestStatus("Booked");
-                bl.setHouseId(houseId);
-                bl.setHouseTypeName(houseTypeName);
-
-                b.confirmBookingfromRequestedUser(bl);
-
-                //update house type status
-                switch (houseTypeName) {
-                    case "Room":
-                        RoomBLL r = new RoomBLL();
-                        r.updateRoomStatus("Booked", houseId);
-                        break;
-                    case "House":
-                        HouseBLL h = new HouseBLL();
-                        h.updateHouseStatus("Booked", houseId);
-                        break;
-                    case "Apartment":
-                        ApartmentBLL abll = new ApartmentBLL();
-                        abll.updateApartmentStatus("Booked", houseId);
-                        break;
-
-                }
-
-                //setting notification after confirm booking
-                NotificationUser nfu = new NotificationUser();
-                nfu.setFromuser(Routing.USERNAME);
-                switch (houseTypeName) {
-                    case "Room":
-                        nfu.setTouser(RusernameLblDtl.getText());
-                        animatePane(roomDetailsPane, sucessBookPane);
-                        break;
-                    case "House":
-                        nfu.setTouser(HusernameLblDtl.getText());
-                        animatePane(houseDetailsPane, sucessBookPane);
-                        break;
-                    case "Apartment":
-                        nfu.setTouser(AusernameLblDtl.getText());
-                        animatePane(apartmentDetailsPane, sucessBookPane);
-                        break;
-                }
-                nfu.setNotificationType(5);
-                nfu.setDetails("has Confrimed Booking of your " + houseTypeName + " Post");
-                nfu.setStatus("Unseen");
-                new NotificationBLL().sendNotification(nfu);
-                
-                //deleting interested from interested
-                new InterestedUserBLL().cancelUserInterestedInHouse(Routing.USERNAME, houseId, houseTypeName);
-
-            }
-            else{
-                 switch (houseTypeName) {
-                    case "Room":
-                        animatePane(roomDetailsPane, tablePane);
-                        break;
-                    case "House":
-                        animatePane(houseDetailsPane, tablePane);
-                        break;
-                    case "Apartment":
-                        animatePane(apartmentDetailsPane, tablePane);
-                        break;
-                }
-            }
-    }
+        ConfirmBooking();
+        loadContentInTable();
+     }
 
     private void loadContentInTable() {
         data.clear();
@@ -411,17 +323,29 @@ public class BookedListController implements Initializable {
 
             switch (houseTypeName) {
                 case "Room":
-                    roomBookConfirmBtn.setVisible(false);
+                    roomBookConfirmBtn.setDisable(true);
                     break;
                 case "House":
-                    houseBookConfirmBtn.setVisible(false);
+                    houseBookConfirmBtn.setDisable(true);
                     break;
                 case "Apartment":
-                    apartmentBookConfirmBtn.setVisible(false);
+                    apartmentBookConfirmBtn.setDisable(true);
                     break;
             }
         }
-
+        else{
+            switch (houseTypeName) {
+                case "Room":
+                    roomBookConfirmBtn.setDisable(false);
+                    break;
+                case "House":
+                    houseBookConfirmBtn.setDisable(false);
+                    break;
+                case "Apartment":
+                    apartmentBookConfirmBtn.setDisable(false);
+                    break;
+            }
+        }
         //loading content in anchor pane
         if (houseTypeName.equals("Room")) {
 
@@ -615,4 +539,102 @@ public class BookedListController implements Initializable {
         loadContentInTable();
     }
 
+    private void ConfirmBooking(){
+        noresultPane.setVisible(false);
+        houseId = bookedtable.getSelectionModel().getSelectedItem().getHouseId();
+        houseTypeName = bookedtable.getSelectionModel().getSelectedItem().getHouseTypeName();
+
+         int day = new Validation().getDateDifferenceinDay(enddate);
+            
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirm "+houseTypeName+" Request");
+            alert.setHeaderText(null);
+            alert.setContentText("You can't be able to book any house for  "+ String.valueOf(day)+"days.");
+
+            Stage alertstage = (Stage) alert.getDialogPane().getScene().getWindow();
+            alertstage.getIcons().add(new Image(Routing.IMAGES + Routing.ICON));
+
+            Optional<ButtonType> action = alert.showAndWait();
+
+            if (action.get() == ButtonType.OK) {
+                //update PRESENT status to Past;
+                b.updateBookedListUserStatus(houseId, houseTypeName, Routing.USERNAME);
+
+                //update request_ status
+                b.updateBookedListrequestStatus(houseId, houseTypeName, Routing.USERNAME);
+
+                java.sql.Date date = java.sql.Date.valueOf(new Validation().getTodaydate());
+                Booked bl = new Booked();
+                bl.setBookedusername(Routing.USERNAME);
+                bl.setBookedDate(date);
+                bl.setUserStatus("PRESENT");
+                bl.setRequestStatus("Booked");
+                bl.setHouseId(houseId);
+                bl.setHouseTypeName(houseTypeName);
+
+                b.confirmBookingfromRequestedUser(bl);
+
+                //update house type status
+                switch (houseTypeName) {
+                    case "Room":
+                        RoomBLL r = new RoomBLL();
+                        r.updateRoomStatus("Booked", houseId);
+                        break;
+                    case "House":
+                        HouseBLL h = new HouseBLL();
+                        h.updateHouseStatus("Booked", houseId);
+                        break;
+                    case "Apartment":
+                        ApartmentBLL abll = new ApartmentBLL();
+                        abll.updateApartmentStatus("Booked", houseId);
+                        break;
+
+                }
+
+                //setting notification after confirm booking
+                NotificationUser nfu = new NotificationUser();
+                nfu.setFromuser(Routing.USERNAME);
+                switch (houseTypeName) {
+                    case "Room":
+                        nfu.setTouser(RusernameLblDtl.getText());
+                        animatePane(roomDetailsPane, sucessBookPane);
+                        break;
+                    case "House":
+                        nfu.setTouser(HusernameLblDtl.getText());
+                        animatePane(houseDetailsPane, sucessBookPane);
+                        break;
+                    case "Apartment":
+                        nfu.setTouser(AusernameLblDtl.getText());
+                        animatePane(apartmentDetailsPane, sucessBookPane);
+                        break;
+                }
+                //setting username in sucess pane after confirming
+                completeUsername.setText(Routing.USERNAME);
+                
+                nfu.setNotificationType(5);
+                nfu.setDetails("has Confrimed Booking of your " + houseTypeName + " Post");
+                nfu.setStatus("Unseen");
+                new NotificationBLL().sendNotification(nfu);
+                
+                //deleting interested from interested
+                new InterestedUserBLL().cancelUserInterestedInHouse(Routing.USERNAME, houseId, houseTypeName);
+
+            }
+            else{
+                 switch (houseTypeName) {
+                    case "Room":
+                        animatePane(roomDetailsPane, tablePane);
+                        break;
+                    case "House":
+                        animatePane(houseDetailsPane, tablePane);
+                        break;
+                    case "Apartment":
+                        animatePane(apartmentDetailsPane, tablePane);
+                        break;
+                }
+            }
+        
+            //changing houseid to 0;
+            houseId = 0;
+    }
 }

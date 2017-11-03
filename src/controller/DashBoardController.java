@@ -37,6 +37,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -172,6 +173,8 @@ public class DashBoardController implements Initializable {
     private Label indcateTxt;
  
     private File usermanual;
+    @FXML
+    private Label userstatusLbl;
    
     /**
      * Initializes the controller class.
@@ -230,7 +233,17 @@ public class DashBoardController implements Initializable {
             });
             pt.play();
         }
-        //labeling user
+        //labeling all components of menu
+        //checks whether user is busy or avaulable
+            if(new BookedBLL().getUserStatus(Routing.USERNAME) >0){
+                 userstatusLbl.setText("Unavailable");
+                 userstatusLbl.setTextFill(Paint.valueOf("#eb0d0d"));
+             }
+             else{
+                 userstatusLbl.setText("Available");
+                 userstatusLbl.setTextFill(Paint.valueOf("#3fb033"));
+                 }
+        
         DatabaseConnection db = DatabaseConnection.getInstanceofDB();
         Connection conn = db.connectDB();
 
@@ -594,7 +607,7 @@ public class DashBoardController implements Initializable {
             String storeUserandPass = "user=\npassword=";
             //file user and password must be ket empty
             try {
-                try (FileWriter fw = new FileWriter(Routing.HELPER+"user.properties")) {
+                try (FileWriter fw = new FileWriter(Routing.PROPERTIES)) {
                     fw.write(storeUserandPass);
                     fw.close();
                 }

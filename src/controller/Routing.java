@@ -5,8 +5,6 @@
  */
 package controller;
 
-import data.User;
-
 /**
  *
  * @author samip
@@ -15,9 +13,10 @@ public class Routing {
     
     public static final String IMAGES ="/images/";
     public static final String USERIMAGES ="/images/users/";
-    public static final String HELPER = "src/help/";
+    public static final String HELPER = "/src/help/";
     public static final String ICON="hme.png";
-   
+    public static final String PROPERTIES = "user.properties";
+    
     
     public static final String SPLASH ="/view/Splash.fxml";
     public static final String SIGNUP ="/view/SignUp.fxml";

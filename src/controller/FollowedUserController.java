@@ -145,6 +145,7 @@ public class FollowedUserController implements Initializable {
         fu.updateUserPermission(permission, Routing.USERNAME, name);
         
         animatePane(profileDetailsPane, tablePane);
+        name=null;
         //for imediate change
         loadDataInTable();
     }
@@ -276,6 +277,8 @@ public class FollowedUserController implements Initializable {
             nfu.setDetails("has asked you to change permission to allow for "+Routing.USERNAME);
             nfu.setStatus("Unseen");
 
+            name=null;
+            
             new NotificationBLL().sendNotification(nfu);
             animatePane(profileDetailsPane, tablePane);
             

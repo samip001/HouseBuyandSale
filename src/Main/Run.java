@@ -7,10 +7,14 @@ package Main;
 
 import model.DatabaseConnection;
 import controller.Routing;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,6 +38,7 @@ import org.controlsfx.control.Notifications;
 public class Run extends Application {
 
     private InputStream inputStream;
+    private FileReader fr;
     private Properties properties;
     private String username, passwrd;
 
@@ -51,8 +56,12 @@ public class Run extends Application {
         Scene scene;
         properties = new Properties();
         try {
-            inputStream = new FileInputStream(Routing.HELPER + "user.properties");
-            properties.load(inputStream);
+//            String filename = this.getClass().getResource("src/help/user.properties").getFile();
+            File file =new File(Routing.PROPERTIES);
+            System.out.println(file.getCanonicalPath());
+//            inputStream = new FileInputStream(file);
+            fr =new FileReader(file);
+            properties.load(fr);
             username = properties.getProperty("user");
             passwrd = properties.getProperty("password");
 
